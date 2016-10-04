@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.apache.ws.security:wss4j:1.6.17">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../maven/repository/org/apache/ws/security/wss4j/1.6.17/wss4j-1.6.17.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../../maven/repository/org/apache/ws/security/wss4j/1.6.17/wss4j-1.6.17-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../maven/repository/org/apache/ws/security/wss4j/1.6.17/wss4j-1.6.17-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

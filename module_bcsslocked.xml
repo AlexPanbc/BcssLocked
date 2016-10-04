@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_bcsslocked" default="compile.module.bcsslocked">
+  <dirname property="module.bcsslocked.basedir" file="${ant.file.module_bcsslocked}"/>
+  
+  <property name="module.jdk.home.bcsslocked" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.bcsslocked" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.bcsslocked" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.bcsslocked" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="bcsslocked.output.dir" value="${module.bcsslocked.basedir}/target/classes"/>
+  <property name="bcsslocked.testoutput.dir" value="${module.bcsslocked.basedir}/target/test-classes"/>
+  
+  <path id="bcsslocked.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="bcsslocked.module.production.classpath">
+    <path refid="${module.jdk.classpath.bcsslocked}"/>
+  </path>
+  
+  <path id="bcsslocked.runtime.production.module.classpath">
+    <pathelement location="${bcsslocked.output.dir}"/>
+  </path>
+  
+  <path id="bcsslocked.module.classpath">
+    <path refid="${module.jdk.classpath.bcsslocked}"/>
+    <pathelement location="${bcsslocked.output.dir}"/>
+  </path>
+  
+  <path id="bcsslocked.runtime.module.classpath">
+    <pathelement location="${bcsslocked.testoutput.dir}"/>
+    <pathelement location="${bcsslocked.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.bcsslocked">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.bcsslocked">
+    <patternset refid="excluded.from.module.bcsslocked"/>
+  </patternset>
+  
+  
+  <target name="compile.module.bcsslocked" depends="compile.module.bcsslocked.production,compile.module.bcsslocked.tests" description="Compile module BcssLocked"/>
+  
+  <target name="compile.module.bcsslocked.production" depends="register.custom.compilers" description="Compile module BcssLocked; production classes"/>
+  
+  <target name="compile.module.bcsslocked.tests" depends="register.custom.compilers,compile.module.bcsslocked.production" description="compile module BcssLocked; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.bcsslocked" description="cleanup module">
+    <delete dir="${bcsslocked.output.dir}"/>
+    <delete dir="${bcsslocked.testoutput.dir}"/>
+  </target>
+</project>

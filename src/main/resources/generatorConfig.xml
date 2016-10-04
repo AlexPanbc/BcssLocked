@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 数据库驱动包 -->
+    <classPathEntry location="D:\Java\jar\mysql-connector-java-5.1.39-bin.jar"/><!--配置绝对路径 -->
+    <!-- 配置数据源连接 -->
+    <context id="Mysql" targetRuntime="MyBatis3">
+        <property name="beginningDelimiter" value=""/>
+        <property name="endingDelimiter" value=""/>
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"></plugin>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+
+        <!-- 注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/><!-- 是否取消注释 -->
+            <property name="suppressDate" value="true"/> <!-- 是否生成注释代时间戳-->
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/bcsslocked?useUnicode=true&amp;characterEncoding=UTF-8"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- targetPackage:生成的pojo放入的包, targetProject:生成的pojo放入的项目(对应工作空间的项目) -->
+        <javaModelGenerator targetPackage="com.pbc.po"
+                            targetProject="src/main/java"/>
+
+
+        <!--targetPackage=生成的sql对应的包 targetProject:生成的sql接口对应的项目 -->
+        <sqlMapGenerator targetPackage="com.pbc.mapper"
+                         targetProject="src/main/java"/>
+        <!--对应mapper类的的生成-->
+        <javaClientGenerator
+                targetPackage="com.pbc.mapper" implementationPackage="com.pbc.mapper"
+                targetProject="src/main/java" type="XMLMAPPER">
+        </javaClientGenerator>
+
+        <!-- 要生成哪些表 -->
+        <table tableName="goods" domainObjectName="Goods" schema="">
+        </table>
+        <table tableName="goodstype" domainObjectName="GoodsType" schema="">
+        </table>
+        <table tableName="order" domainObjectName="Order" schema="">
+        </table>
+        <table tableName="userinfo" domainObjectName="UserInfo" schema="">
+        </table>
+
+
+    </context>
+
+</generatorConfiguration>
