@@ -32,7 +32,7 @@ public class UserInfoController {
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public String get(@PathVariable("id") int id) {
         log.debug("根据用户ID查询用户，接口参数为：" + JSON.toJSONString(id));//发布到服务器之后，供调试时候查看log使用
-         userInfoService.get(id);
+        userInfoService.get(id);
         return "index";
     }
 }
