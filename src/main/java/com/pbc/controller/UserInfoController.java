@@ -27,9 +27,9 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-    public String get(Integer id) {
+    public String get(int id) {
         log.debug("根据用户ID查询用户，接口参数为：" + JSON.toJSONString(id));//发布到服务器之后，供调试时候查看log使用
-         userInfoService.get(2);
+         userInfoService.get(id);
         return "index";
     }
 }
