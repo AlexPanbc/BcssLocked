@@ -10,17 +10,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Alex on 2016/10/5.
+ * 功能：用户controller
  */
 @Controller
 @RequestMapping("/userInfo")
 public class UserInfoController {
     private static Logger log = LogManager.getLogger(UserInfoController.class);
 
-    @Autowired
+    @Autowired/*Autowired用来标记此属性字段为自动装配类，使用时候，不用new,它的生命周期由spring接管，只需配置即可；*/
     private UserInfoService userInfoService;
 
     /**
