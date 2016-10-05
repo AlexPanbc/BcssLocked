@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 功能：个人信息查询controller
  * 时间：2016年9月25日01:36:40
- * 作者：liuhuichao
+ * 作者：Alex
  */
 @Controller
 @RequestMapping("/personInfo")
