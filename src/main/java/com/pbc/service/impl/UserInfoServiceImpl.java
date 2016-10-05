@@ -4,12 +4,14 @@ import com.pbc.mapper.UserInfoMapper;
 import com.pbc.po.UserInfo;
 import com.pbc.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Alex on 2016/10/5.
  */
+@Service
 public class UserInfoServiceImpl implements UserInfoService {
 
     @Autowired
