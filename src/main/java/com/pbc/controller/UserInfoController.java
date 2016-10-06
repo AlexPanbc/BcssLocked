@@ -20,7 +20,7 @@ import org.springframework.web.util.NestedServletException;
  */
 @Controller
 @RequestMapping("/userInfo")
-public class UserInfoController  {
+public class UserInfoController {
     private static Logger log = LogManager.getLogger(UserInfoController.class);
 
     @Autowired/*Autowired用来标记此属性字段为自动装配类，使用时候，不用new,它的生命周期由spring接管，只需配置即可；*/
@@ -33,13 +33,11 @@ public class UserInfoController  {
      * @param map 返回参数用 为什么传入参数时也需要这样传参数？？？？？？？？？？？？？？？？？？？？？？
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(@RequestBody UserInfo u, ModelMap map) {
         log.debug("创建用户信息，接口参数为：" + JSON.toJSONString(u));//发布到服务器之后，供调试时候查看log使用
-        if (userInfoService.add(u) != 1)
-        throw new Exception("咩有创建数据成功u！");  //还有这个抛异常 也很奇怪 居然不好使？？？？？？？？？？？？？？？？？？？？？？？？？？
-        map.put("allUser", userInfoService.getAll());
+        if (userInfoService.add(u) == 1)
+            map.put("allUser", userInfoService.getAll());
         return "AllUserInfo";
     }
 
@@ -50,27 +48,27 @@ public class UserInfoController  {
      * @param map
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "/upd", method = RequestMethod.POST)
     public String upd(@RequestBody UserInfo u, ModelMap map) {
         log.debug("更新用户信息，接口参数为：" + JSON.toJSONString(u));//发布到服务器之后，供调试时候查看log使用
-        if (userInfoService.upd(u) != 1)
-            throw Exception("咩有更新数据u！");
-        map.put("allUser", userInfoService.getAll());
+        if (userInfoService.upd(u) == 1)
+            map.put("allUser", userInfoService.getAll());
         return "AllUserInfo";
     }
 
     /**
      * 删除用户信息
+     *
      * @param id
      * @param map
      * @return
      */
-    @RequestMapping(value = "/del/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/del/{id}", method = RequestMethod.GET)
     public String del(@PathVariable("id") int id, ModelMap map) {
         log.debug("根据用户ID查询用户，接口参数为：" + JSON.toJSONString(id));//发布到服务器之后，供调试时候查看log使用
-        if (userInfoService.del(u) != 1)
-            throw Exception("咩有更新数据u！");
+        if (userInfoService.del(id) == 1)
+            map.put("allUser", userInfoService.getAll());
+//            throw Exception("咩有更新数据u！");
         return "AllUserInfo";
     }
 
@@ -84,6 +82,7 @@ public class UserInfoController  {
     public String get(@PathVariable("id") int id, ModelMap map) {
         log.debug("根据用户ID查询用户，接口参数为：" + JSON.toJSONString(id));//发布到服务器之后，供调试时候查看log使用
         map.put("user", userInfoService.get(id));
+        map.put("userJson", JSON.toJSON(userInfoService.get(id)));
         return "UserInfo";
     }
 

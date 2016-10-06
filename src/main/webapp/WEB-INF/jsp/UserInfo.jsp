@@ -15,7 +15,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<h1>测试ok</h1>
+<h1>${userJson}</h1>
 序号：${user.id}
 名称：${user.name}
 密码：${user.pass}
