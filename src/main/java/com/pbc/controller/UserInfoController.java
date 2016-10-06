@@ -30,7 +30,7 @@ public class UserInfoController {
      * 创建用户
      *
      * @param u
-     * @param map 返回参数用 为什么传入参数时也需要这样传参数？？？？？？？？？？？？？？？？？？？？？？
+     * @param map 返回参数用 这个参数是用来回传返回数据的，ModelMap里面封装了request，可以将要返回的数据放到里面
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
