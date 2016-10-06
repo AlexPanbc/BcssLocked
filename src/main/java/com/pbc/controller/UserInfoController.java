@@ -68,7 +68,7 @@ public class UserInfoController {
         log.debug("根据用户ID查询用户，接口参数为：" + JSON.toJSONString(id));//发布到服务器之后，供调试时候查看log使用
         if (userInfoService.del(id) == 1)
             map.put("allUser", userInfoService.getAll());
-//            throw Exception("咩有更新数据u！");
+//            throw Exception("咩有更新数据u！"); //你好可爱呀，^_^炳灿叔叔~~
         return "AllUserInfo";
     }
 
