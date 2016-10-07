@@ -14,11 +14,12 @@
     <title>商品类型管理</title>
 </head>
 <body>
+<h1>${jsonGoodsType}</h1>
 <c:forEach items="${allGoodsType}" var="goodtype">
     序号：${goodtype.id}
     商品类型：${goodtype.name}
-    创建时间：${goodtype.CreateOn}
-    修改时间：${goodtype.ModifedOn}
+    创建时间：${goodtype.createdon}
+    修改时间：${goodtype.modifiedon}
 </c:forEach>
 </body>
 </html>

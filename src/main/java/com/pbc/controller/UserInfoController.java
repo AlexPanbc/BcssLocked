@@ -40,6 +40,8 @@ public class UserInfoController extends BaseController {
             map.put("allUser", userInfoService.getAll());
         return "AllUserInfo";
     }
+    //todo http://localhost:8080/BcssLocked/userInfo/upd
+    //// TODO: 2016/10/7 {"modifiedon":"2016-10-07","mailbox":"zhongwen@163.com","pass":"123456","phone":"13465423215","name":"终于可以插入中文了","id":13,"createdon":"2016-10-07"} 
 
     /**
      * 修改用户信息
@@ -71,6 +73,8 @@ public class UserInfoController extends BaseController {
 //            throw Exception("咩有更新数据u！"); //你好可爱呀，^_^炳灿叔叔~~
         return "AllUserInfo";
     }
+    
+//// TODO: 2016/10/7 http://localhost:8080/BcssLocked/userInfo/get/13
 
     /**
      * 根据用户序号查询用户信息
