@@ -29,4 +29,24 @@ public class GoodsServiceImpl implements GoodsService {
         List<GoodsListResponse> goodsList=goodsDao.getAllGoodsList();
         return goodsList;
     }
+
+    @Override
+    public GoodsListResponse getGoodsById(String id) {
+        return goodsDao.getGoodsById(id);
+    }
+
+    @Override
+    public int addGoods(Goods goods) {
+        return goodsDao.addGoods(goods);
+    }
+
+    @Override
+    public int updateGoodsByPK(Goods goods) {
+        return goodsDao.updateGoodsByPK(goods);
+    }
+
+    @Override
+    public int deleteGoodsByPK(String id) {
+        return goodsDao.deleteGoodsByPK(id);
+    }
 }

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BaseController {
 
+    protected  static final String SUCCESS="success";
+    protected  static final String ERROR="error";
+
     /**
      * 将对象转换为jsonString
      * @param object
