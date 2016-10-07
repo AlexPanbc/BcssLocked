@@ -6,6 +6,7 @@ import com.pbc.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +30,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public int add(UserInfo u) {
+        u.setCreatedon(new Date());
+        u.setModifiedon(new Date());
         return userInfoMapper.insert(u);
     }
 

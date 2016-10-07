@@ -30,7 +30,7 @@ public class UserInfoController {
      * 创建用户
      *
      * @param u
-     * @param map 返回参数用 为什么传入参数时也需要这样传参数？？？？？？？？？？？？？？？？？？？？？？
+     * @param map 返回参数用 这个参数是用来回传返回数据的，ModelMap里面封装了request，可以将要返回的数据放到里面
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -68,7 +68,7 @@ public class UserInfoController {
         log.debug("根据用户ID查询用户，接口参数为：" + JSON.toJSONString(id));//发布到服务器之后，供调试时候查看log使用
         if (userInfoService.del(id) == 1)
             map.put("allUser", userInfoService.getAll());
-//            throw Exception("咩有更新数据u！");
+//            throw Exception("咩有更新数据u！"); //你好可爱呀，^_^炳灿叔叔~~
         return "AllUserInfo";
     }
 

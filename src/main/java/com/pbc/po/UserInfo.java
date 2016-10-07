@@ -52,7 +52,6 @@ public class UserInfo implements Serializable {
      *
      * @mbggenerated
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdon;
 
     /**
@@ -61,7 +60,6 @@ public class UserInfo implements Serializable {
      *
      * @mbggenerated
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date modifiedon;
 
     /**
@@ -200,6 +198,7 @@ public class UserInfo implements Serializable {
      *
      * @mbggenerated
      */
+
     public Date getCreatedon() {
         return createdon;
     }
