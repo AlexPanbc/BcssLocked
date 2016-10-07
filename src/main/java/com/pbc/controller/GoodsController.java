@@ -20,6 +20,7 @@ public class GoodsController extends BaseController {
     private GoodsService goodsService;
 
     /**
+     * 接口地址示例：http://localhost:8089/BcssLocked/goods/allGoods
      * 获取所有商品
      * @return
      */
