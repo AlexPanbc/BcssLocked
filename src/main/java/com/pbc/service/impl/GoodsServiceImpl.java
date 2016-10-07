@@ -9,6 +9,7 @@ import com.pbc.webparams.responseparams.GoodsListResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public List<GoodsListResponse> getAllGoods() {
-       return goodsDao.getAllGoodsList();
+        List<GoodsListResponse> goodsList=goodsDao.getAllGoodsList();
+        return goodsList;
     }
 }
