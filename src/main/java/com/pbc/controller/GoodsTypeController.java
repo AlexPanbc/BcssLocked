@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/goodsType")
-public class GoodsTypeController {
+public class GoodsTypeController extends BaseController {
     private static Logger log = LogManager.getLogger(GoodsTypeController.class);
 
     @Autowired

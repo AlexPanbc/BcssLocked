@@ -20,7 +20,7 @@ import org.springframework.web.util.NestedServletException;
  */
 @Controller
 @RequestMapping("/userInfo")
-public class UserInfoController {
+public class UserInfoController extends BaseController {
     private static Logger log = LogManager.getLogger(UserInfoController.class);
 
     @Autowired/*Autowired用来标记此属性字段为自动装配类，使用时候，不用new,它的生命周期由spring接管，只需配置即可；*/
