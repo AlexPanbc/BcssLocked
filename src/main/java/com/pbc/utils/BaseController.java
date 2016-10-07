@@ -1,4 +1,4 @@
-package com.pbc.controller;
+package com.pbc.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
