@@ -3,16 +3,13 @@ package com.pbc.controller;
 import com.alibaba.fastjson.JSON;
 import com.pbc.po.UserInfo;
 import com.pbc.service.UserInfoService;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
+import com.pbc.utils.BaseController;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.maven.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.NestedServletException;
 
 /**
  * Created by Alex on 2016/10/5.

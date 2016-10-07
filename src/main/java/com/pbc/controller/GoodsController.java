@@ -1,7 +1,7 @@
 package com.pbc.controller;
 
 import com.pbc.service.GoodsService;
-import org.apache.commons.beanutils.BeanUtils;
+import com.pbc.utils.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
