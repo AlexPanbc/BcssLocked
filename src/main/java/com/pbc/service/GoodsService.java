@@ -1,6 +1,7 @@
 package com.pbc.service;
 
 import com.pbc.po.Goods;
+import com.pbc.webparams.responseparams.GoodsListResponse;
 
 import java.util.List;
 
@@ -9,8 +10,8 @@ import java.util.List;
  */
 public interface GoodsService {
     /**
-     * 查询所有商品
+     * 查询所有商品列表
      * @return
      */
-    List<Goods> getAllGoods();
+    List<GoodsListResponse> getAllGoods();
 }
