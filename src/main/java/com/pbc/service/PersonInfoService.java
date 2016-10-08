@@ -1,7 +1,7 @@
 package com.pbc.service;
 
 import com.pbc.po.PersonInfo;
-import com.pbc.webparams.requestparams.PersonInfoQueryPrams;
+import com.pbc.domainentity.qentity.PersonInfoQueryPrams;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.pbc.service;
 
 import com.pbc.po.Goods;
-import com.pbc.webparams.responseparams.GoodsListResponse;
+import com.pbc.domainentity.penetity.GoodsListResponse;
 
 import java.util.List;
 

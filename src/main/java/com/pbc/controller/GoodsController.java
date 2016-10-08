@@ -26,11 +26,12 @@ public class GoodsController extends BaseController {
     /**
      * 接口地址示例：http://localhost:8089/BcssLocked/goods/allGoods
      * 获取所有商品
+     *
      * @return
      */
     @ResponseBody
-    @RequestMapping(value="allGoods", method= RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
-    public String allGoods(){
+    @RequestMapping(value = "allGoods", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
+    public String allGoods() {
         return toJSONString(goodsService.getAllGoods());
     }
 

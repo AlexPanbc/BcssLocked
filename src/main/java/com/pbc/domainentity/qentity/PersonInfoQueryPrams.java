@@ -1,4 +1,4 @@
-package com.pbc.webparams.requestparams;
+package com.pbc.domainentity.qentity;
 
 /**
  * Created by LiuHuiChao on 2016/10/1.

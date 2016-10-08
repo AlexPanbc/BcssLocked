@@ -1,10 +1,9 @@
 package com.pbc.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.pbc.dao.PersonInfoDao;
 import com.pbc.po.PersonInfo;
 import com.pbc.service.PersonInfoService;
-import com.pbc.webparams.requestparams.PersonInfoQueryPrams;
+import com.pbc.domainentity.qentity.PersonInfoQueryPrams;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

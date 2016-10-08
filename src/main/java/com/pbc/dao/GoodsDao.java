@@ -2,7 +2,7 @@ package com.pbc.dao;
 
 import com.pbc.dao.impl.GoodsDaoImpl;
 import com.pbc.po.Goods;
-import com.pbc.webparams.responseparams.GoodsListResponse;
+import com.pbc.domainentity.penetity.GoodsListResponse;
 import org.apache.ibatis.annotations.*;
 
 import javax.annotation.Resource;

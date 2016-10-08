@@ -1,18 +1,19 @@
 package com.pbc.controller;
 
-import com.alibaba.fastjson.JSON;
+import com.pbc.domainentity.qentity.goodsType.MGoodsType;
+import com.pbc.domainentity.qentity.goodsType.UpdGoodsType;
 import com.pbc.po.GoodsType;
 import com.pbc.service.GoodsTypeService;
 import com.pbc.utils.BaseController;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by Alex on 2016/10/6.
@@ -30,15 +31,18 @@ public class GoodsTypeController extends BaseController {
     /**
      * 添加商品类型
      *
-     * @param g
+     * @param name
      * @param map
      * @return
      */
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@RequestBody GoodsType g, ModelMap map) {
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
+    public String add(@RequestBody String name, ModelMap map) {
+        GoodsType g = new GoodsType();
+        //BeanUtils.copyProperties(g, ag);
+        g.setName(name);
         g.setCreatedon(new Date());
         g.setModifiedon(new Date());
-        log.debug("创建商品类型，接口参数：" + toJSONString(g));
+        log.info("创建商品类型，接口参数：" + toJSONString(g));
         if (goodsTypeService.add(g) == 1)
             map.put("allGoodsType", goodsTypeService.getAll());
         return "AllGoodsType";
@@ -52,9 +56,9 @@ public class GoodsTypeController extends BaseController {
      * @param map
      * @return
      */
-    @RequestMapping(value = "/del/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/del/{id}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
     public String del(@PathVariable("id") int id, ModelMap map) {
-        log.debug("删除商品类型，接口参数：" + JSON.toJSONString(id));
+        log.info("删除商品类型，接口参数：" + toJSONString(id));
         if (goodsTypeService.del(id) == 1)
             map.put("allGoodsType", goodsTypeService.getAll());
         return "AllGoodsType";
@@ -65,23 +69,23 @@ public class GoodsTypeController extends BaseController {
     /**
      * 修改商品类型
      *
-     * @param g
+     * @param ag
      * @param map
      * @return
      */
-    @RequestMapping(value = "/upd", method = RequestMethod.POST)
-    public String upd(@RequestBody GoodsType g, ModelMap map) {
-        if (g == null) log.debug("商品类型实体参数不能为空if(g == null)");
+    @RequestMapping(value = "/upd", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
+    public String upd(@RequestBody UpdGoodsType ag, ModelMap map) {
+        if (ag == null) log.error("商品类型实体参数不能为空if(g == null)");
         //抛异常信息提示
-        if (g.getId() == 0) log.debug("商品类型序号不能为0 if(g.getId()==0)");
+        if (ag.getId() == 0) log.error("商品类型序号不能为0 if(g.getId()==0)");
         //抛异常信息提示
-        GoodsType gt = goodsTypeService.get(g.getId());
-        if (gt == null) log.debug("商品类型不存在");
+        GoodsType gt = goodsTypeService.get(ag.getId());
+        if (gt == null) log.error("商品类型不存在");
         //抛异常信息提示
-        g.setCreatedon(gt.getCreatedon());
-        g.setModifiedon(new Date());
-        log.debug("修改商品类型，接口参数：" + JSON.toJSONString(g));
-        if (goodsTypeService.upd(g) == 1)
+        BeanUtils.copyProperties(gt, ag);
+        gt.setModifiedon(new Date());
+        log.info("修改商品类型，接口参数：" + toJSONString(gt));
+        if (goodsTypeService.upd(gt) == 1)
             map.put("allGoodsType", goodsTypeService.getAll());
         return "AllGoodsType";
     }
@@ -94,12 +98,16 @@ public class GoodsTypeController extends BaseController {
      * @param map
      * @return
      */
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
     public String get(@PathVariable("id") int id, ModelMap map) {
-        log.debug("根据序号获取商品类型，接口参数：" + id);
+        log.info("根据序号获取商品类型，接口参数：" + id);
         GoodsType goodsType = goodsTypeService.get(id);
-        map.put("goodsType", goodsType);
-        map.put("goodsTypejson", JSON.toJSONString(goodsType));
+        if (goodsType == null)
+            log.error("数据不存在：" + id);
+        MGoodsType mg = new MGoodsType();
+        BeanUtils.copyProperties(mg, goodsType);
+        map.put("goodsType", mg);
+        map.put("goodsTypejson", toJSONString(mg));
         return "GoodsType";
     }
 
@@ -111,11 +119,13 @@ public class GoodsTypeController extends BaseController {
      * @param map
      * @return
      */
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
     public String getAll(ModelMap map) {
-        log.debug("查询所有商品类型");
-        map.put("allGoodsType", goodsTypeService.getAll());
-        map.put("jsonGoodsType", toJSONString(goodsTypeService.getAll()));
+        log.info("查询所有商品类型");
+        List<MGoodsType> lstMgt = new ArrayList<MGoodsType>();
+        BeanUtils.copyProperties(lstMgt, goodsTypeService.getAll());
+        map.put("allGoodsType", lstMgt);
+        map.put("jsonGoodsType", toJSONString(lstMgt));
         return "AllGoodsType";
     }
 }

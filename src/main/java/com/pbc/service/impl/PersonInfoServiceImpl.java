@@ -5,11 +5,10 @@ import com.pbc.mapper.PersonInfoMapper;
 import com.pbc.po.PersonInfo;
 import com.pbc.po.PersonInfoExample;
 import com.pbc.service.PersonInfoService;
-import com.pbc.webparams.requestparams.PersonInfoQueryPrams;
+import com.pbc.domainentity.qentity.PersonInfoQueryPrams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

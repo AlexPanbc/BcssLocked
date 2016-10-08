@@ -1,8 +1,7 @@
-package com.pbc.webparams.responseparams;
+package com.pbc.domainentity.penetity;
 
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
