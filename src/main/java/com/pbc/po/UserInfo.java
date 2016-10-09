@@ -1,7 +1,5 @@
 package com.pbc.po;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -198,7 +196,6 @@ public class UserInfo implements Serializable {
      *
      * @mbggenerated
      */
-
     public Date getCreatedon() {
         return createdon;
     }
