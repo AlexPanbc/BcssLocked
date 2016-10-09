@@ -4,7 +4,9 @@ import com.pbc.domainentity.qentity.goodsType.MGoodsType;
 import com.pbc.domainentity.qentity.goodsType.UpdGoodsType;
 import com.pbc.po.GoodsType;
 import com.pbc.service.GoodsTypeService;
-import com.pbc.utils.BaseController;
+import com.pbc.utils.Tools.BaseController;
+import com.pbc.utils.Tools.BeanUtilsExtends;
+import com.pbc.utils.Tools.DateTools;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -37,8 +40,8 @@ public class GoodsTypeController extends BaseController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
     public String add(@RequestBody String name, ModelMap map) {
+        if (name.isEmpty()) log.error("商品类型创建操作参数不能为空 name：" + name);
         GoodsType g = new GoodsType();
-        //BeanUtils.copyProperties(g, ag);
         g.setName(name);
         g.setCreatedon(new Date());
         g.setModifiedon(new Date());
@@ -120,10 +123,16 @@ public class GoodsTypeController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
-    public String getAll(ModelMap map) {
+    public String getAll(ModelMap map) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         log.info("查询所有商品类型");
         List<MGoodsType> lstMgt = new ArrayList<MGoodsType>();
-        BeanUtils.copyProperties(lstMgt, goodsTypeService.getAll());
+        for (GoodsType t : goodsTypeService.getAll()) {
+            MGoodsType mt = new MGoodsType();
+            BeanUtilsExtends.copyProperties(mt, t);//重写BeanUtils.copyProperties
+//            PropertyUtils.copyProperties(mt, t);  // TODO: 2016/10/9 属性类型匹配   略慢
+//            BeanUtils.copyProperties(mt,t);//// TODO: 2016/10/9 属性名称一致则赋值 不匹配类型 效率高
+            lstMgt.add(mt);
+        }
         map.put("allGoodsType", lstMgt);
         map.put("jsonGoodsType", toJSONString(lstMgt));
         return "AllGoodsType";

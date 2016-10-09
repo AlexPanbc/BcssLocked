@@ -3,7 +3,7 @@ package com.pbc.controller;
 import com.alibaba.fastjson.JSON;
 import com.pbc.po.UserInfo;
 import com.pbc.service.UserInfoService;
-import com.pbc.utils.BaseController;
+import com.pbc.utils.Tools.BaseController;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

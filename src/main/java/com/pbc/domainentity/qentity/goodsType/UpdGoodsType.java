@@ -4,6 +4,15 @@ package com.pbc.domainentity.qentity.goodsType;
  * Created by Alex on 2016/10/8.
  */
  public class UpdGoodsType {
+    /**
+     * 商品类型序号
+     */
+    private int id;
+    /**
+     * 商品类型名称
+     */
+    private String name;
+
     public int getId() {
         return id;
     }
@@ -19,14 +28,5 @@ package com.pbc.domainentity.qentity.goodsType;
     public void setName(String name) {
         this.name = name;
     }
-
-    /**
-     * 商品类型序号
-     */
-    private int id;
-    /**
-     * 商品类型名称
-     */
-    private String name;
 
 }

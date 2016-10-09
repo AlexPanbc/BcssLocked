@@ -2,43 +2,31 @@ package com.pbc.domainentity.qentity.goodsType;
 
 import java.util.Date;
 
-public class MGoodsType {
-    /**
-     * 商品类型序号
-     */
-    private int id;
-    /**
-     * 商品类型名称
-     */
-    private String name;
+public class MGoodsType extends UpdGoodsType {
 
     /**
      * 商品类型创建时间
      */
-    private Date createdOn;
+    private Date createdon;
 
-    public int getId() {
-        return id;
+    /**
+     * 商品类型修改时间
+     */
+    private Date modifiedon;
+
+    public Date getCreatedon() {
+        return createdon;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCreatedon(Date createdon) {
+        this.createdon = createdon;
     }
 
-    public String getName() {
-        return name;
+    public Date getModifiedon() {
+        return modifiedon;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setModifiedon(Date modifiedon) {
+        this.modifiedon = modifiedon;
     }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
 }
