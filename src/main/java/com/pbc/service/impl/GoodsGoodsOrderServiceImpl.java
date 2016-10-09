@@ -1,8 +1,8 @@
 package com.pbc.service.impl;
 
-import com.pbc.dao.OrderDao;
-import com.pbc.domainentity.qentity.order.*;
-import com.pbc.service.OrderService;
+import com.pbc.dao.GoodsOrderDao;
+import com.pbc.domainentity.qentity.goodsorder.*;
+import com.pbc.service.GoodsOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +12,23 @@ import java.util.List;
  * Created by Alex on 2016/10/9.
  */
 @Service
-public class OrderServiceImpl implements OrderService {
+public class GoodsGoodsOrderServiceImpl implements GoodsOrderService {
 
     @Autowired
-    private OrderDao orderDao;
+    private GoodsOrderDao orderDao;
 
     @Override
-    public SltOrder get(int id) {
+    public SltGoodsOrder get(int id) {
         return orderDao.get(id);
     }
 
     @Override
-    public List<AllOrder> getAll() {
+    public List<AllGoodsOrder> getAll() {
         return orderDao.getAll();
     }
 
     @Override
-    public int add(AddOrder o) {
+    public int add(AddGoodsOrder o) {
         return orderDao.add(o);
     }
 

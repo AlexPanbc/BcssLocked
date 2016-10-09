@@ -1,11 +1,9 @@
-package com.pbc.domainentity.qentity.order;
-
-import java.util.Date;
+package com.pbc.domainentity.qentity.goodsorder;
 
 /**
  * Created by Alex on 2016/10/9.
  */
-public class AllOrder extends AddOrder {
+public class AllGoodsOrder extends AddGoodsOrder {
 
     private int id;
 

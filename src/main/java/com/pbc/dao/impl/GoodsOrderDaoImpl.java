@@ -1,12 +1,12 @@
 package com.pbc.dao.impl;
 
-import com.pbc.domainentity.qentity.order.AddOrder;
+import com.pbc.domainentity.qentity.goodsorder.AddGoodsOrder;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
  * Created by Alex on 2016/10/9.
  */
-public class OrderDaoImpl {
+public class GoodsOrderDaoImpl {
 
     /**
      * 根据序号查询订单
@@ -34,7 +34,7 @@ public class OrderDaoImpl {
     }
 
 
-    public String add(final AddOrder a) {
+    public String add(final AddGoodsOrder a) {
         return new SQL() {{
             INSERT_INTO("goodsorder");
             VALUES("userid", "#{userid}");
