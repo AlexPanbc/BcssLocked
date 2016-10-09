@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50633
 File Encoding         : 65001
 
-Date: 2016-10-09 21:31:29
+Date: 2016-10-09 21:45:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS `goodsorder`;
 CREATE TABLE `goodsorder` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `UserId` int(11) NOT NULL,
-  `UserName` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `UserName` varchar(255) DEFAULT NULL,
   `GoodsId` int(11) NOT NULL,
   `GoodsName` varchar(255) DEFAULT NULL,
   `Money` float NOT NULL,
