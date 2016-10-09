@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50633
 File Encoding         : 65001
 
-Date: 2016-10-05 15:06:25
+Date: 2016-10-09 15:01:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -60,7 +60,7 @@ INSERT INTO `goodstype` VALUES ('3', '猫类', '2016-10-04 14:18:02', '2016-10-0
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL,
+  `UserId` int(11) NOT NULL,
   `UserName` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `GoodsId` int(11) NOT NULL,
   `GoodsName` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
