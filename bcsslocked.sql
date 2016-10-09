@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50633
 File Encoding         : 65001
 
-Date: 2016-10-09 15:01:30
+Date: 2016-10-09 20:21:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,7 +33,7 @@ CREATE TABLE `goods` (
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES ('1', '猫食', '2', '21.02', '2', '2016-10-04 14:18:02', '2016-10-04 14:18:02');
+INSERT INTO `goods` VALUES ('1', '猫食', '3', '21.02', '2', '2016-10-04 14:18:02', '2016-10-04 14:18:02');
 
 -- ----------------------------
 -- Table structure for goodstype
@@ -63,16 +63,17 @@ CREATE TABLE `order` (
   `UserId` int(11) NOT NULL,
   `UserName` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `GoodsId` int(11) NOT NULL,
-  `GoodsName` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `GoodsName` varchar(255) DEFAULT NULL,
   `Money` float NOT NULL,
-  `CreateOn` datetime NOT NULL,
+  `CreatedOn` datetime NOT NULL,
   `ModifiedOn` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
+INSERT INTO `order` VALUES ('1', '1', 'pbc', '1', '猫食', '21.02', '2016-10-09 20:09:06', '2016-10-09 20:09:08');
 
 -- ----------------------------
 -- Table structure for userinfo

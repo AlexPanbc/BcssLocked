@@ -18,7 +18,7 @@ public class OrderDaoImpl {
         return new SQL() {
             {
                 SELECT("id,userid,username,goodsid,goodsname,money,createdon,modifiedon");
-                FROM("order");
+                FROM("`order`");
                 if (id > 0)
                     WHERE("id = #{id}");
             }

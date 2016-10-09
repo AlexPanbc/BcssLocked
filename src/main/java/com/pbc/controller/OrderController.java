@@ -40,7 +40,7 @@ public class OrderController extends BaseController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "get/{id}", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
+    @RequestMapping(value = "get/{id}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
     public String get(@PathVariable("id") int id) {
         log.debug("根据id查询订单信息，订单id为：" + toJSONString(id));
         return toJSONString(orderService.get(id));
