@@ -18,7 +18,7 @@ public class OrderDaoImpl {
         return new SQL() {
             {
                 SELECT("id,userid,username,goodsid,goodsname,money,createdon,modifiedon");
-                FROM("`order`");
+                FROM("goodsorder");
                 if (id > 0)
                     WHERE("id = #{id}");
             }
@@ -29,21 +29,21 @@ public class OrderDaoImpl {
     public String getAll() {
         return new SQL() {{
             SELECT("id,userid,username,goodsid,goodsname,money");
-            FROM("order");
+            FROM("goodsorder");
         }}.toString();
     }
 
 
     public String add(final AddOrder a) {
         return new SQL() {{
-            INSERT_INTO("order");
-            VALUES("userid", "#{a.userid}");
-            VALUES("username", "#{a.username}");
-            VALUES("goodsid", "#{a.goodsid}");
-            VALUES("goodsname", "#{a.goodsname}");
-            VALUES("money", "#{a.money}");
+            INSERT_INTO("goodsorder");
+            VALUES("userid", "#{userid}");
+            VALUES("username", "#{username}");
+            VALUES("goodsid", "#{goodsid}");
+            VALUES("goodsname", "#{goodsname}");
+            VALUES("money", "#{money}");
             VALUES("createdon", "NOW()");
-            VALUES("modifiedon", "now()");
+            VALUES("modifiedon", "NOW()");
         }}.toString();
     }
 
@@ -51,7 +51,7 @@ public class OrderDaoImpl {
     public String del(int id) {
         return new SQL() {
             {
-                DELETE_FROM("order");
+                DELETE_FROM("goodsorder");
                 WHERE("ID = #{id}");
             }
         }.toString();

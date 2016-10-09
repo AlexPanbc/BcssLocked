@@ -8,15 +8,15 @@ import java.util.Date;
 public class SltOrder extends AllOrder {
 
 
-    private Date createon;
+    private Date createdon;
     private Date modifiedon;
 
-    public Date getCreateon() {
-        return createon;
+    public Date getCreatedon() {
+        return createdon;
     }
 
-    public void setCreateon(Date createon) {
-        this.createon = createon;
+    public void setCreatedon(Date createdon) {
+        this.createdon = createdon;
     }
 
     public Date getModifiedon() {

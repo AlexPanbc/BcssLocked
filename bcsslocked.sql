@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50633
 File Encoding         : 65001
 
-Date: 2016-10-09 20:21:42
+Date: 2016-10-09 21:31:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,6 +36,27 @@ CREATE TABLE `goods` (
 INSERT INTO `goods` VALUES ('1', '猫食', '3', '21.02', '2', '2016-10-04 14:18:02', '2016-10-04 14:18:02');
 
 -- ----------------------------
+-- Table structure for goodsorder
+-- ----------------------------
+DROP TABLE IF EXISTS `goodsorder`;
+CREATE TABLE `goodsorder` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `UserId` int(11) NOT NULL,
+  `UserName` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `GoodsId` int(11) NOT NULL,
+  `GoodsName` varchar(255) DEFAULT NULL,
+  `Money` float NOT NULL,
+  `CreatedOn` datetime NOT NULL,
+  `ModifiedOn` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of goodsorder
+-- ----------------------------
+INSERT INTO `goodsorder` VALUES ('1', '1', 'pbc', '1', '猫食', '21.02', '2016-10-09 20:09:06', '2016-10-09 20:09:08');
+
+-- ----------------------------
 -- Table structure for goodstype
 -- ----------------------------
 DROP TABLE IF EXISTS `goodstype`;
@@ -53,27 +74,6 @@ CREATE TABLE `goodstype` (
 INSERT INTO `goodstype` VALUES ('1', '电子产品类', '2016-10-04 14:18:02', '2016-10-04 14:18:02');
 INSERT INTO `goodstype` VALUES ('2', '鱼类', '2016-10-04 14:18:02', '2016-10-04 14:18:02');
 INSERT INTO `goodstype` VALUES ('3', '猫类', '2016-10-04 14:18:02', '2016-10-04 14:18:02');
-
--- ----------------------------
--- Table structure for order
--- ----------------------------
-DROP TABLE IF EXISTS `order`;
-CREATE TABLE `order` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `UserId` int(11) NOT NULL,
-  `UserName` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `GoodsId` int(11) NOT NULL,
-  `GoodsName` varchar(255) DEFAULT NULL,
-  `Money` float NOT NULL,
-  `CreatedOn` datetime NOT NULL,
-  `ModifiedOn` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of order
--- ----------------------------
-INSERT INTO `order` VALUES ('1', '1', 'pbc', '1', '猫食', '21.02', '2016-10-09 20:09:06', '2016-10-09 20:09:08');
 
 -- ----------------------------
 -- Table structure for userinfo
