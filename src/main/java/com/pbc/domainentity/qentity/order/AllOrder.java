@@ -7,14 +7,14 @@ import java.util.Date;
  */
 public class AllOrder extends AddOrder {
 
-    private Integer id;
+    private int id;
 
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
