@@ -67,7 +67,6 @@ public class GoodsOrderController extends BaseController {
      * @param id
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "del/{id}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
     public String del(@PathVariable("id") int id) {
         log.debug("删除商品信息：" + toJSONString(id));
