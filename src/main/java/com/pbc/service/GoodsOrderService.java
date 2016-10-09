@@ -1,15 +1,15 @@
 package com.pbc.service;
 
-import com.pbc.domainentity.qentity.order.AddOrder;
-import com.pbc.domainentity.qentity.order.AllOrder;
-import com.pbc.domainentity.qentity.order.SltOrder;
+import com.pbc.domainentity.qentity.goodsorder.AddGoodsOrder;
+import com.pbc.domainentity.qentity.goodsorder.AllGoodsOrder;
+import com.pbc.domainentity.qentity.goodsorder.SltGoodsOrder;
 
 import java.util.List;
 
 /**
  * Created by Alex on 2016/10/9.
  */
-public interface OrderService {
+public interface GoodsOrderService {
 
     /**
      * 根据序号查找订单
@@ -17,14 +17,14 @@ public interface OrderService {
      * @param id
      * @return
      */
-    SltOrder get(int id);
+    SltGoodsOrder get(int id);
 
     /**
      * 查询所有订单
      *
      * @return
      */
-    List<AllOrder> getAll();
+    List<AllGoodsOrder> getAll();
 
     /**
      * 创建订单
@@ -32,7 +32,7 @@ public interface OrderService {
      * @param o
      * @return
      */
-    int add(AddOrder o);
+    int add(AddGoodsOrder o);
 
     /**
      * 取消订单

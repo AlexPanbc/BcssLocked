@@ -1,11 +1,11 @@
-package com.pbc.domainentity.qentity.order;
+package com.pbc.domainentity.qentity.goodsorder;
 
 import java.util.Date;
 
 /**
  * Created by Alex on 2016/10/9.
  */
-public class SltOrder extends AllOrder {
+public class SltGoodsOrder extends AllGoodsOrder {
 
 
     private Date createdon;

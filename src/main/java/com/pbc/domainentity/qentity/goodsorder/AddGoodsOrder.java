@@ -1,9 +1,9 @@
-package com.pbc.domainentity.qentity.order;
+package com.pbc.domainentity.qentity.goodsorder;
 
 /**
  * Created by Alex on 2016/10/9.
  */
-public class AddOrder {
+public class AddGoodsOrder {
 
     private int userid;
 
