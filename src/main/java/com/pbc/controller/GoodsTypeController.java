@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -126,13 +127,20 @@ public class GoodsTypeController extends BaseController {
     public String getAll(ModelMap map) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         log.info("查询所有商品类型");
         List<MGoodsType> lstMgt = new ArrayList<MGoodsType>();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for (GoodsType t : goodsTypeService.getAll()) {
+           String createTime= sdf.format(t.getCreatedon());
+           String modifyTime= sdf.format(t.getModifiedon());
             MGoodsType mt = new MGoodsType();
             BeanUtilsExtends.copyProperties(mt, t);//重写BeanUtils.copyProperties
+            mt.setCreatedon(createTime);
+            mt.setModifiedon(modifyTime);
 //            PropertyUtils.copyProperties(mt, t);  // TODO: 2016/10/9 属性类型匹配   略慢
-//            BeanUtils.copyProperties(mt,t);//// TODO: 2016/10/9 属性名称一致则赋值 不匹配类型 效率高
+        //   BeanUtils.copyProperties(t,mt);//// TODO: 2016/10/9 属性名称一致则赋值 不匹配类型 效率高
             lstMgt.add(mt);
         }
+
+
         map.put("allGoodsType", lstMgt);
         map.put("jsonGoodsType", toJSONString(lstMgt));
         return "AllGoodsType";
