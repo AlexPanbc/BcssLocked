@@ -5,9 +5,16 @@ import com.pbc.service.GoodsOrderService;
 import com.pbc.utils.Tools.BaseController;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.tools.ant.types.resources.comparators.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomBooleanEditor;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Alex on 2016/10/9.
@@ -55,7 +62,7 @@ public class GoodsOrderController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "add", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
-    public String add(@RequestBody AddGoodsOrder o) {
+    public String add(@Valid @RequestBody AddGoodsOrder o) { //呵呵 验证不顶用
         log.debug("添加订单，订单参数为：" + toJSONString(o));
         return goodsOrderService.add(o) == 1 ? SUCCESS : ERROR;
     }

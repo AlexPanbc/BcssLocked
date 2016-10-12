@@ -19,17 +19,18 @@ public class DateConvert implements Converter {
         if (p == null || p.trim().length() == 0) {
             return null;
         }
-        try {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            return df.parse(p);
-        } catch (Exception e) {
-            try {
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                return df.parse(p.trim());
-            } catch (ParseException ex) {
-                return null;
-            }
-        }
+        return DateTools.date2Str((Date) arg1);
+//        try {
+//            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            return df.parse(p);
+//        } catch (Exception e) {
+//            try {
+//                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//                return df.parse(p.trim());
+//            } catch (ParseException ex) {
+//                return null;
+//            }
+//        }
 
     }
 }

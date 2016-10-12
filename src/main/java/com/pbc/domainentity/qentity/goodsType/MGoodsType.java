@@ -7,26 +7,26 @@ public class MGoodsType extends UpdGoodsType {
     /**
      * 商品类型创建时间
      */
-    private Date createdon;
+    private String createdon;
 
     /**
      * 商品类型修改时间
      */
-    private Date modifiedon;
+    private String modifiedon;
 
-    public Date getCreatedon() {
+    public String getCreatedon() {
         return createdon;
     }
 
-    public void setCreatedon(Date createdon) {
+    public void setCreatedon(String createdon) {
         this.createdon = createdon;
     }
 
-    public Date getModifiedon() {
+    public String getModifiedon() {
         return modifiedon;
     }
 
-    public void setModifiedon(Date modifiedon) {
+    public void setModifiedon(String modifiedon) {
         this.modifiedon = modifiedon;
     }
 }

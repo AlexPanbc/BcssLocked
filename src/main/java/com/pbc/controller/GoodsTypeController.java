@@ -7,6 +7,7 @@ import com.pbc.service.GoodsTypeService;
 import com.pbc.utils.Tools.BaseController;
 import com.pbc.utils.Tools.BeanUtilsExtends;
 import com.pbc.utils.Tools.DateTools;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.*;
