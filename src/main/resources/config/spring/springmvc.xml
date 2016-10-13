@@ -30,7 +30,27 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<!--&lt;!&ndash; 国际化配置 &ndash;&gt;-->
+	<bean id="localeResolver"
+		  class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+	<bean id="messageSource"
+		  class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<!--<value>classpath:messages/messages</value>-->
+				<!--<value>classpath:messages/Validation</value>-->
+			</list>
+		</property>
+		<property name="useCodeAsDefaultMessage" value="true" />
+	</bean>
+	<!-- 注册验证器 -->
+	<mvc:annotation-driven validator="validator" />
 
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+		<!-- 这里配置将使用上面国际化配置的messageSource -->
+		<property name="validationMessageSource" ref="messageSource"/>
+	</bean>
 
 
 	<!-- 资源映射 -->

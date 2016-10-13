@@ -10,11 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomBooleanEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Alex on 2016/10/9.
@@ -60,11 +65,18 @@ public class GoodsOrderController extends BaseController {
      * @param o
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "add", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
-    public String add(@Valid @RequestBody AddGoodsOrder o) { //呵呵 验证不顶用
-        log.debug("添加订单，订单参数为：" + toJSONString(o));
-        return goodsOrderService.add(o) == 1 ? SUCCESS : ERROR;
+    @ResponseBody
+    public String add(@Valid @RequestBody AddGoodsOrder o, BindingResult result) throws Exception { //呵呵 验证不顶用
+        if (result.hasErrors()) {//如果没有通过,跳转提示
+            Map<String, String> map = getErrors(result);
+            log.error(map);
+            return ERROR;
+        } else {
+            //继续业务逻辑
+            log.debug("添加订单，订单参数为：" + toJSONString(o));
+            return goodsOrderService.add(o) == 1 ? SUCCESS : ERROR;
+        }
     }
 
     /**
