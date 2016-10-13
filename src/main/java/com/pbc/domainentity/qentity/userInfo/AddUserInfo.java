@@ -1,19 +1,25 @@
 package com.pbc.domainentity.qentity.userInfo;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Size;
+
 /**
  * Created by Alex on 2016/10/9.
  */
 public class AddUserInfo {
 
+    @NotBlank(message = "用户名称不能为空")
     private String name;
 
-
+    @NotBlank(message = "密码不能为空")
     private String pass;
 
-
+    @Size(min = 8, max = 11, message = "电话号码必须在8-11位")
     private String phone;
 
-
+    @NotBlank(message = "邮箱不能为空")
     private String mailbox;
 
     public String getName() {

@@ -7,16 +7,17 @@ import com.pbc.po.UserInfo;
 import com.pbc.service.UserInfoService;
 import com.pbc.utils.Tools.BaseController;
 import com.pbc.utils.Tools.BeanUtilsExtends;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Alex on 2016/10/5.
@@ -38,7 +39,13 @@ public class UserInfoController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@RequestBody AddUserInfo u, ModelMap map) {
+    @Valid
+    public String add(@RequestBody AddUserInfo u, ModelMap map, BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> ap = getErrors(result);
+            log.error(ap);
+            return ERROR;
+        }
         if (u == null) log.error("参数不能为空");
         log.debug("创建用户信息，接口参数为：" + JSON.toJSONString(u));//发布到服务器之后，供调试时候查看log使用
         UserInfo ui = new UserInfo();
@@ -58,7 +65,13 @@ public class UserInfoController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/upd", method = RequestMethod.POST)
-    public String upd(@RequestBody UpdUserInfo u, ModelMap map) {
+    @Valid
+    public String upd(@RequestBody UpdUserInfo u, ModelMap map, BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> mp = getErrors(result);
+            log.error(mp);
+            return ERROR;
+        }
         if (u == null) log.error("参数不能为空");
         if (u.getId() == 0) log.error("序号必须大于0");
         log.debug("更新用户信息，接口参数为：" + JSON.toJSONString(u));//发布到服务器之后，供调试时候查看log使用

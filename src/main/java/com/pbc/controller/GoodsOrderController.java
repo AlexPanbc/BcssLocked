@@ -68,7 +68,7 @@ public class GoodsOrderController extends BaseController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
     @ResponseBody
-    public String add(@Valid @RequestBody AddGoodsOrder o, BindingResult result) throws Exception { 
+    public String add(@Valid @RequestBody AddGoodsOrder o, BindingResult result) throws Exception {
         if (result.hasErrors()) {//如果没有通过,跳转提示
             Map<String, String> map = getErrors(result);
             log.error(map);

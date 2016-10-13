@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -80,11 +81,12 @@ public class GoodsTypeController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/upd", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
-    public String upd(@RequestBody UpdGoodsType ag, ModelMap map) {
-        if (ag == null) log.error("商品类型实体参数不能为空if(g == null)");
-        //抛异常信息提示
-        if (ag.getId() == 0) log.error("商品类型序号不能为0 if(g.getId()==0)");
-        //抛异常信息提示
+    public String upd(@Valid @RequestBody UpdGoodsType ag, ModelMap map, BindingResult result) {
+       if(result.hasErrors()){
+           Map<String, String> ap = getErrors(result);
+           log.error(ap);
+           return ERROR;
+       }
         GoodsType gt = goodsTypeService.get(ag.getId());
         if (gt == null) log.error("商品类型不存在");
         //抛异常信息提示
