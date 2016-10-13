@@ -16,6 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +68,7 @@ public class GoodsOrderController extends BaseController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
     @ResponseBody
-    public String add(@Valid @RequestBody AddGoodsOrder o, BindingResult result) throws Exception { //呵呵 验证不顶用
+    public String add(@Valid @RequestBody AddGoodsOrder o, BindingResult result) throws Exception { 
         if (result.hasErrors()) {//如果没有通过,跳转提示
             Map<String, String> map = getErrors(result);
             log.error(map);
