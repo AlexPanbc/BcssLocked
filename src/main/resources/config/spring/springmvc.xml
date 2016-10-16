@@ -19,6 +19,8 @@
 	<context:component-scan base-package="com.pbc.controller">
 	</context:component-scan>
 
+	<!--配置全局异常处理器-->
+	<bean class="com.pbc.utils.exceptions.HandlerExceptionClass"></bean>
 
     <!-- 视图解析器 解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包 -->
     <!--springMvc在进行试图解析的时候，会根据前缀，返回的视图名称，后缀拼接好后去对应位置寻找视图-->
