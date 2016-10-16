@@ -42,10 +42,10 @@ public class HandlerExceptionClass implements HandlerExceptionResolver {
         }else if(ex instanceof ServiceException){
             serviceException=(ServiceException)ex;
             //错误信息
-            String message = serviceException.getMessage();
+            String info = serviceException.getInfo();
             ModelAndView modelAndView = new ModelAndView();
             //将错误信息传到页面
-            modelAndView.addObject("message", message);
+            modelAndView.addObject("message", info);
             //指向错误页面
             modelAndView.setViewName("error");
             return modelAndView;
