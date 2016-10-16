@@ -1,7 +1,7 @@
 package com.pbc.utils.exceptions;
 
 /**
- * 功能：Service层抛出的异常类
+ * 功能：Service层抛出的异常类，service层抛出的异常必须为RuntimeException这种类型的异常，事务才会回滚，这是保证事务性必须的
  * Created by LiuHuiChao on 2016/10/7.
  */
 public class ServiceException extends RuntimeException {
