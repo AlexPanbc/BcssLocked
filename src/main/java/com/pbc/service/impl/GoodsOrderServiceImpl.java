@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Alex on 2016/10/9.
  */
 @Service
-public class GoodsGoodsOrderServiceImpl implements GoodsOrderService {
+public class GoodsOrderServiceImpl implements GoodsOrderService {
 
     @Autowired
     private GoodsOrderDao orderDao;
