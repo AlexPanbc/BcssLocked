@@ -26,7 +26,7 @@
 
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxIdle" value="${redis.maxIdle}" />     <!--最大空闲数-->
+        <!--<property name="maxIdle" value="${redis.maxIdle}" />     &lt;!&ndash;最大空闲数&ndash;&gt;-->
         <property name="maxWait" value="${redis.maxWait}" />    <!--最大等待时间ms-->
         <property name="testOnBorrow" value="false" />
     </bean>
