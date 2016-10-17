@@ -82,11 +82,11 @@ public class GoodsTypeController extends BaseController {
      */
     @RequestMapping(value = "/upd", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
     public String upd(@Valid @RequestBody UpdGoodsType ag, ModelMap map, BindingResult result) {
-       if(result.hasErrors()){
-           Map<String, String> ap = getErrors(result);
-           log.error(ap);
-           return ERROR;
-       }
+        if (result.hasErrors()) {
+            Map<String, String> ap = getErrors(result);
+            log.error(ap);
+            return ERROR;
+        }
         GoodsType gt = goodsTypeService.get(ag.getId());
         if (gt == null) log.error("商品类型不存在");
         //抛异常信息提示
@@ -112,8 +112,13 @@ public class GoodsTypeController extends BaseController {
         GoodsType goodsType = goodsTypeService.get(id);
         if (goodsType == null)
             log.error("数据不存在：" + id);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createTime = sdf.format(goodsType.getCreatedon());
+        String modifyTime = sdf.format(goodsType.getModifiedon());
         MGoodsType mg = new MGoodsType();
-        BeanUtils.copyProperties(mg, goodsType);
+        BeanUtilsExtends.copyProperties(mg, goodsType);
+        mg.setCreatedon(createTime);
+        mg.setModifiedon(modifyTime);
         map.put("goodsType", mg);
         map.put("goodsTypejson", toJSONString(mg));
         return "GoodsType";
@@ -131,16 +136,16 @@ public class GoodsTypeController extends BaseController {
     public String getAll(ModelMap map) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         log.info("查询所有商品类型");
         List<MGoodsType> lstMgt = new ArrayList<MGoodsType>();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for (GoodsType t : goodsTypeService.getAll()) {
-           String createTime= sdf.format(t.getCreatedon());
-           String modifyTime= sdf.format(t.getModifiedon());
+            String createTime = sdf.format(t.getCreatedon());
+            String modifyTime = sdf.format(t.getModifiedon());
             MGoodsType mt = new MGoodsType();
             BeanUtilsExtends.copyProperties(mt, t);//重写BeanUtils.copyProperties
             mt.setCreatedon(createTime);
             mt.setModifiedon(modifyTime);
 //            PropertyUtils.copyProperties(mt, t);  // TODO: 2016/10/9 属性类型匹配   略慢
-        //   BeanUtils.copyProperties(t,mt);//// TODO: 2016/10/9 属性名称一致则赋值 不匹配类型 效率高
+            //   BeanUtils.copyProperties(t,mt);//// TODO: 2016/10/9 属性名称一致则赋值 不匹配类型 效率高
             lstMgt.add(mt);
         }
 

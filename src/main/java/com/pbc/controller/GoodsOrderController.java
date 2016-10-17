@@ -3,6 +3,7 @@ package com.pbc.controller;
 import com.pbc.domainentity.qentity.goodsorder.AddGoodsOrder;
 import com.pbc.service.GoodsOrderService;
 import com.pbc.utils.Tools.BaseController;
+import com.pbc.utils.exceptions.CustomException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.tools.ant.types.resources.comparators.Date;
@@ -69,10 +70,14 @@ public class GoodsOrderController extends BaseController {
     @RequestMapping(value = "add", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
     @ResponseBody
     public String add(@Valid @RequestBody AddGoodsOrder o, BindingResult result) throws Exception {
+//        if (o.getUsername().isEmpty()) {
+//            throw new CustomException("用户名不能为空!");//controller 层使用CustomException这个异常类；
+//        }
         if (result.hasErrors()) {//如果没有通过,跳转提示
             Map<String, String> map = getErrors(result);
             log.error(map);
-            return ERROR;
+            throw new CustomException(map.toString());//controller 层使用CustomException这个异常类；
+//            return ERROR;
         } else {
             //继续业务逻辑
             log.debug("添加订单，订单参数为：" + toJSONString(o));
