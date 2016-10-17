@@ -18,7 +18,7 @@
     </bean>
 
     <!-- redis 配置 -->
-    <bean id="redisDao" class="com.pbc.utils.RedisDao" scope="prototype">
+    <bean id="redisDao" class="com.pbc.utils.Tools.RedisDao" scope="prototype">
         <property name="shardedJedisPool">
             <ref bean="shardedJedisPool"/>
         </property>
@@ -26,7 +26,6 @@
 
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxActive" value="${redis.maxActive}" />    <!--最大连接数-->
         <property name="maxIdle" value="${redis.maxIdle}" />     <!--最大空闲数-->
         <property name="maxWait" value="${redis.maxWait}" />    <!--最大等待时间ms-->
         <property name="testOnBorrow" value="false" />
