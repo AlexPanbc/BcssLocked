@@ -38,7 +38,14 @@ public class RedisClassTest {
      */
     @Test
     public void testRedisCurcrrence(){
+        for(int i=0;i<3000;i++){
+            new Thread(){
+                @Override
+                public void run() {
 
+                }
+            }.start();
+        }
     }
 
 }
