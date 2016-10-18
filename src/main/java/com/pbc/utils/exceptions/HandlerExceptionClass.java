@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
     与业务功能没有关系的异常，建议在controller中抛出。
 
  */
+@Deprecated
 public class HandlerExceptionClass implements HandlerExceptionResolver {
 
     /**
