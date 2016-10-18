@@ -4,6 +4,7 @@ package com.pbc.utils.exceptions;
  * 功能：controller抛出的异常，例如，字段校验。。。
  * Created by LiuHuiChao on 2016/10/16.
  */
+@Deprecated
 public class CustomException extends Exception {
     /**
      * 异常信息
