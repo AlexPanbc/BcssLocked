@@ -3,6 +3,8 @@ package com.pbc.utils.Tools;
 import com.alibaba.fastjson.JSONObject;
 import com.pbc.utils.exceptions.ExceptionTip;
 import com.pbc.utils.exceptions.ServiceException;
+import com.pbc.utils.exceptions.SuccessTip;
+import com.pbc.utils.exceptions.Tip;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,8 @@ public class BaseController {
     protected static final String SUCCESS = "success";
     protected static final String ERROR = "error";
 
+    public static final Tip SUCCESS_TIP = new SuccessTip();
+
     /**
      * 静态常量定义错误信息
      */
@@ -41,7 +45,7 @@ public class BaseController {
     @ExceptionHandler(RuntimeException.class)
     public String noControlException(RuntimeException ex){
         logger.debug("未知异常",ex);
-        return "error/errorpage";
+        return "error";
     }
 
     /**
