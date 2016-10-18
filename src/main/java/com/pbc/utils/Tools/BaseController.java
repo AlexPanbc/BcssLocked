@@ -71,7 +71,7 @@ public class BaseController {
                 break;
         }
         logger.debug("错误码 ："+msg , se);
-        return toJSONString(tip);
+        return toJSONString(tip);//返回应答信息
     }
 
 
