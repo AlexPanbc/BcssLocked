@@ -11,19 +11,30 @@ import java.util.List;
 public interface GoodsService {
     /**
      * 查询所有商品列表
+     *
      * @return
      */
     List<GoodsListResponse> getAllGoods();
 
     /**
      * 根据ID查询商品
+     *
      * @param id
      * @return
      */
     GoodsListResponse getGoodsById(String id);
 
     /**
+     * redis缓存商品信息
+     *
+     * @param id
+     * @return
+     */
+    String get(String id);
+
+    /**
      * 添加商品信息
+     *
      * @param goods
      * @return
      */
@@ -31,6 +42,7 @@ public interface GoodsService {
 
     /**
      * 更新商品信息by primary key
+     *
      * @param goods
      * @return
      */
@@ -38,8 +50,9 @@ public interface GoodsService {
 
     /**
      * 删除商品信息
+     *
      * @param id
      * @return
      */
-    int  deleteGoodsByPK(final String id);
+    int deleteGoodsByPK(final String id);
 }

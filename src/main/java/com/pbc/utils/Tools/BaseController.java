@@ -39,24 +39,26 @@ public class BaseController {
 
     /**
      * 拦截RuntimeException，进行处理
+     *
      * @param ex
      * @return
      */
     @ExceptionHandler(RuntimeException.class)
-    public String noControlException(RuntimeException ex){
-        logger.debug("未知异常",ex);
+    public String noControlException(RuntimeException ex) {
+        logger.debug("未知异常", ex);
         return "error";
     }
 
     /**
      * 拦截ServiceException
+     *
      * @param se
      * @param request
      * @return
      */
     @ExceptionHandler(ServiceException.class)
     @ResponseBody
-    public String operateExp(ServiceException se,HttpServletRequest request){
+    public String operateExp(ServiceException se, HttpServletRequest request) {
         String msg = se.getMessage();
         ExceptionTip tip = null;
         int msgCode = Integer.parseInt(msg);
@@ -70,10 +72,9 @@ public class BaseController {
             default:
                 break;
         }
-        logger.debug("错误码 ："+msg , se);
+        logger.debug("错误码 ：" + msg, se);
         return toJSONString(tip);//返回应答信息
     }
-
 
 
     /**
@@ -82,12 +83,13 @@ public class BaseController {
      * @param object
      * @return
      */
-    protected String toJSONString(Object object) {
+    public String toJSONString(Object object) {
         return JSONObject.toJSONString(object);
     }
 
     /**
      * 将数据转换为string
+     *
      * @param data
      * @param total
      * @return
@@ -101,6 +103,7 @@ public class BaseController {
 
     /**
      * 获取错误信息
+     *
      * @param result
      * @return
      */
