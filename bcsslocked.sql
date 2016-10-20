@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50633
 File Encoding         : 65001
 
-Date: 2016-10-09 21:45:05
+Date: 2016-10-20 23:06:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,13 +48,19 @@ CREATE TABLE `goodsorder` (
   `Money` float NOT NULL,
   `CreatedOn` datetime NOT NULL,
   `ModifiedOn` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `Code` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `唯一索引` (`Code`) USING HASH COMMENT '订单号唯一索引'
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of goodsorder
 -- ----------------------------
-INSERT INTO `goodsorder` VALUES ('1', '1', 'pbc', '1', '猫食', '21.02', '2016-10-09 20:09:06', '2016-10-09 20:09:08');
+INSERT INTO `goodsorder` VALUES ('1', '1', 'pbc', '1', '猫食', '21.02', '2016-10-09 20:09:06', '2016-10-09 20:09:08', '1');
+INSERT INTO `goodsorder` VALUES ('4', '1', '潘潘', '1', '猫食', '21.02', '2016-10-09 21:57:27', '2016-10-09 21:57:27', '2');
+INSERT INTO `goodsorder` VALUES ('5', '0', '潘潘', '0', '猫食', '21.02', '2016-10-12 22:01:11', '2016-10-12 22:01:11', '3');
+INSERT INTO `goodsorder` VALUES ('6', '0', '潘潘', '0', '猫食', '21.02', '2016-10-12 22:14:42', '2016-10-12 22:14:42', '4');
+INSERT INTO `goodsorder` VALUES ('7', '0', '潘潘', '0', '猫食', '21.02', '2016-10-12 22:17:59', '2016-10-12 22:17:59', '5');
 
 -- ----------------------------
 -- Table structure for goodstype

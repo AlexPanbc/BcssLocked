@@ -88,4 +88,27 @@ public class GoodsOrderController extends BaseController {
         log.debug("删除商品信息：" + toJSONString(id));
         return goodsOrderService.del(id) == 1 ? SUCCESS : ERROR;
     }
+
+    /**
+     * 接口地址示例：http://localhost:8080/BcssLocked/goodsorder/add
+     * 创建订单
+     *
+     * @param o
+     * @return
+     */
+    @RequestMapping(value = "inst", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
+    @ResponseBody
+    public String inst(@Valid @RequestBody AddGoodsOrder o, BindingResult result) {
+        if (result.hasErrors()) {//如果没有通过,跳转提示
+            Map<String, String> map = getErrors(result);
+            log.error(map);
+            return ERROR;
+        } else {
+            //继续业务逻辑
+            log.debug("添加订单，订单参数为：" + toJSONString(o));
+            //获取缓存中商品信息，判断如果数量大于0则可以插入订单表，订单表插入成功之后商品数量减一（开启事物）
+            //如果异常 则回滚返回 成功失败
+            return goodsOrderService.add(o) == 1 ? SUCCESS : ERROR;
+        }
+    }
 }

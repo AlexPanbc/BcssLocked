@@ -48,7 +48,7 @@
         </table>
         <table tableName="goodstype" domainObjectName="GoodsType" schema="">
         </table>
-        <table tableName="order" domainObjectName="Order" schema="">
+        <table tableName="goodsorder" domainObjectName="GooderOrder" schema="">
         </table>
         <table tableName="userinfo" domainObjectName="UserInfo" schema="">
         </table>

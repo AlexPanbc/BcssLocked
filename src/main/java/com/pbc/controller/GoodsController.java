@@ -50,6 +50,16 @@ public class GoodsController extends BaseController {
         return toJSONString(goodsService.getGoodsById(id));
     }
 
+    /**
+     * 根据商品序号取商品信息，
+     * 先去读取redis缓存 如果缓存有 则返回，
+     * 如果缓存没有则去数据库取
+     * 防止每次都去读取数据库 减少数据库访问压力
+     * api访问地址 todo http://localhost:8080/BcssLocked/goods/get/1
+     *
+     * @param id 商品序号
+     * @return 商品信息json串
+     */
     @ResponseBody
     @RequestMapping(value = "get/{id}", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8;")
     public String get(@PathVariable("id") String id) {
