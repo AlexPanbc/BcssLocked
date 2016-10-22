@@ -41,4 +41,11 @@ public interface GoodsOrderService {
      * @return
      */
     int del(int id);
+
+    /**
+     * 高并发枪杀商品
+     *
+     * @param o
+     */
+    int inst(AddGoodsOrder o);
 }

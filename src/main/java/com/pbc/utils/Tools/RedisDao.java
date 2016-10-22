@@ -7,6 +7,7 @@ import redis.clients.jedis.ShardedJedisPool;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -32,7 +33,6 @@ public class RedisDao {
         }
         return;
     }
-
 
 
     public String get(String key) {
@@ -89,7 +89,8 @@ public class RedisDao {
 
         List<String> result = null;
         try {
-            result = jedis.lrange(key, start, end);;
+            result = jedis.lrange(key, start, end);
+            ;
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -117,7 +118,7 @@ public class RedisDao {
     public void rpush(String key, String... value) {
         ShardedJedis jedis = shardedJedisPool.getResource();
         try {
-            jedis.rpush(key,value);
+            jedis.rpush(key, value);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -130,7 +131,7 @@ public class RedisDao {
     public void lpush(String key, String... value) {
         ShardedJedis jedis = shardedJedisPool.getResource();
         try {
-            jedis.lpush(key,value);
+            jedis.lpush(key, value);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -167,10 +168,10 @@ public class RedisDao {
     }
 
 
-    public void lrem(String key,int count,String value) {
+    public void lrem(String key, int count, String value) {
         ShardedJedis jedis = shardedJedisPool.getResource();
         try {
-            jedis.lrem(key,count,value);
+            jedis.lrem(key, count, value);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -183,11 +184,12 @@ public class RedisDao {
 
     /**
      * 添加key value 并且设置存活时间
+     *
      * @param key
      * @param value
      * @param liveTime
      */
-    public void set(String key,String value,int liveTime){
+    public void set(String key, String value, int liveTime) {
         ShardedJedis jedis = shardedJedisPool.getResource();
         try {
             this.set(key, value);
@@ -202,14 +204,15 @@ public class RedisDao {
 
     /**
      * 检查key是否已经存在
+     *
      * @param key
      * @return
      */
-    public boolean exists(String key){
+    public boolean exists(String key) {
         ShardedJedis jedis = shardedJedisPool.getResource();
-        boolean result =false;
+        boolean result = false;
         try {
-            result=jedis.exists(key);
+            result = jedis.exists(key);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -221,6 +224,7 @@ public class RedisDao {
 
     /**
      * 获取一个key的模糊匹配总数
+     *
      * @param key
      * @return
      */
@@ -242,11 +246,11 @@ public class RedisDao {
      * 查看redis里有多少数据
      */
     @SuppressWarnings("deprecation")
-    public long dbSize(){
+    public long dbSize() {
         ShardedJedis jedis = shardedJedisPool.getResource();
         Set<String> result = null;
         try {
-            result=jedis.getShard("").keys("*");
+            result = jedis.getShard("").keys("*");
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -256,11 +260,11 @@ public class RedisDao {
         return result.size();
     }
 
-    public long sadd(String key,String... value){
+    public long sadd(String key, String... value) {
         ShardedJedis jedis = shardedJedisPool.getResource();
         long result = 0l;
         try {
-            result= jedis.sadd(key,value);
+            result = jedis.sadd(key, value);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -270,11 +274,11 @@ public class RedisDao {
         return result;
     }
 
-    public Boolean sismember(String key,String value){
+    public Boolean sismember(String key, String value) {
         ShardedJedis jedis = shardedJedisPool.getResource();
         Boolean result = false;
         try {
-            result= jedis.sismember(key,value);
+            result = jedis.sismember(key, value);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -284,11 +288,11 @@ public class RedisDao {
         return result;
     }
 
-    public Set smembers(String key){
+    public Set smembers(String key) {
         ShardedJedis jedis = shardedJedisPool.getResource();
         Set result = null;
         try {
-            result= jedis.smembers(key);
+            result = jedis.smembers(key);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -298,11 +302,11 @@ public class RedisDao {
         return result;
     }
 
-    public long zadd(String key,int sequence,String value){
+    public long zadd(String key, int sequence, String value) {
         ShardedJedis jedis = shardedJedisPool.getResource();
         long result = 0l;
         try {
-            result= jedis.zadd(key,sequence,value);
+            result = jedis.zadd(key, sequence, value);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -313,11 +317,11 @@ public class RedisDao {
     }
 
 
-    public Set<String> zrange(String key,long start,long end){
+    public Set<String> zrange(String key, long start, long end) {
         ShardedJedis jedis = shardedJedisPool.getResource();
         Set<String> result = null;
         try {
-            result= jedis.zrange(key,start,end);
+            result = jedis.zrange(key, start, end);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -327,11 +331,11 @@ public class RedisDao {
         return result;
     }
 
-    public String hmset(String key,Map map){
+    public String hmset(String key, Map map) {
         ShardedJedis jedis = shardedJedisPool.getResource();
         String result = null;
         try {
-            result= jedis.hmset(key,map);
+            result = jedis.hmset(key, map);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -341,11 +345,11 @@ public class RedisDao {
         return result;
     }
 
-    public Map<String,String> hgetAll(String key){
+    public Map<String, String> hgetAll(String key) {
         ShardedJedis jedis = shardedJedisPool.getResource();
-        Map<String,String> result = null;
+        Map<String, String> result = null;
         try {
-            result= jedis.hgetAll(key);
+            result = jedis.hgetAll(key);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             shardedJedisPool.returnBrokenResource(jedis);
@@ -354,7 +358,6 @@ public class RedisDao {
         }
         return result;
     }
-
 
     public ShardedJedisPool getShardedJedisPool() {
         return shardedJedisPool;
@@ -364,3 +367,4 @@ public class RedisDao {
         this.shardedJedisPool = shardedJedisPool;
     }
 }
+

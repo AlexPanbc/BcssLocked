@@ -47,6 +47,8 @@ public class AddGoodsOrder {
 
     private Float money;
 
+    private String code;
+
     public int getUserid() {
         return userid;
     }
@@ -85,5 +87,13 @@ public class AddGoodsOrder {
 
     public void setMoney(Float money) {
         this.money = money;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

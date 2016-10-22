@@ -44,6 +44,7 @@ public class GoodsOrderDaoImpl {
             VALUES("money", "#{money}");
             VALUES("createdon", "NOW()");
             VALUES("modifiedon", "NOW()");
+            VALUES("code", "#{code}");
         }}.toString();
     }
 

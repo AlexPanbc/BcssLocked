@@ -90,7 +90,7 @@ public class GoodsOrderController extends BaseController {
     }
 
     /**
-     * 接口地址示例：http://localhost:8080/BcssLocked/goodsorder/add
+     * 接口地址示例：http://localhost:8080/BcssLocked/goodsorder/inst
      * 创建订单
      *
      * @param o
@@ -106,9 +106,7 @@ public class GoodsOrderController extends BaseController {
         } else {
             //继续业务逻辑
             log.debug("添加订单，订单参数为：" + toJSONString(o));
-            //获取缓存中商品信息，判断如果数量大于0则可以插入订单表，订单表插入成功之后商品数量减一（开启事物）
-            //如果异常 则回滚返回 成功失败
-            return goodsOrderService.add(o) == 1 ? SUCCESS : ERROR;
+            return goodsOrderService.inst(o) == 1 ? SUCCESS : ERROR;
         }
     }
 }
