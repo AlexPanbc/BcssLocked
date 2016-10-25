@@ -33,7 +33,6 @@ public class GoodsOrderServiceImpl implements GoodsOrderService {
     private GoodsDao goodsDao;
     @Autowired
     private GoodsOrderDao orderDao;
-    @Autowired
     private RedisLock redisLock;
     @Autowired
     private RedisDao redisDao;
@@ -60,10 +59,9 @@ public class GoodsOrderServiceImpl implements GoodsOrderService {
 
     @Override
     public int inst(AddGoodsOrder o) {
-
-        redisLock = new RedisLock("goods:" + o.getGoodsid(), redisDao.getShardedJedisPool());
-        redisLock.lock(100000, 10);
         try {
+            redisLock = new RedisLock("goods:" + o.getGoodsid(), redisDao.getShardedJedisPool());
+            redisLock.lock(100000, 10);
             //获取缓存中商品信息，判断如果数量大于0则可以插入订单表，订单表插入成功之后商品数量减一
             String goods = redisDao.get("goods:" + o.getGoodsid());
             if (goods.isEmpty()) return 0;//提示信息商品不存在1
@@ -80,7 +78,7 @@ public class GoodsOrderServiceImpl implements GoodsOrderService {
             if (orderDao.add(o) != 1) return 0;//创建订单失败
             gr.setNumber(gr.getNumber() - 1);
             redisDao.set("goods:" + o.getGoodsid(), toJSONString(gr));
-            return orderDao.add(o);
+            return 1;
         } catch (Exception e) {
             log.error(toJSONString(e));
             return 0;

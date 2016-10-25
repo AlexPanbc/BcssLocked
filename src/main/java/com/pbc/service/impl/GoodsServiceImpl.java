@@ -42,7 +42,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public String get(String id) {
         String goods = redisDao.get("goods:" + id);
-        if (!goods.isEmpty()) return goods;
+        if (goods != null ) return goods;
         goods = toJSONString(goodsDao.getGoodsById(id));
         redisDao.set("goods:" + id, goods);
         return goods;
