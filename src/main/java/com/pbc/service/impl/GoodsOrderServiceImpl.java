@@ -64,7 +64,7 @@ public class GoodsOrderServiceImpl implements GoodsOrderService {
             redisLock.lock(100000, 10);
             //获取缓存中商品信息，判断如果数量大于0则可以插入订单表，订单表插入成功之后商品数量减一
             String goods = redisDao.get("goods:" + o.getGoodsid());
-            if (goods.isEmpty()) return 0;//提示信息商品不存在1
+            if (goods == null || goods.isEmpty()) return 0;//提示信息商品不存在1
             GoodsListResponse gr = (GoodsListResponse) JSONObject.toBean(JSONObject.fromObject(goods), GoodsListResponse.class);
             if (gr == null) return 0;//提示信息商品不存在2
 
