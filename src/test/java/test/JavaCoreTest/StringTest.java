@@ -33,7 +33,7 @@ public class StringTest {
     }
 
     @Test
-    public void DataProcessing() {
+    public void dataProcessing() {
         List<TData> lst = source();
         List<TData> l1 = new ArrayList<TData>();
         List<TData> l2 = new ArrayList<TData>();
