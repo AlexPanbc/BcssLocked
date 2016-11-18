@@ -14,9 +14,18 @@
 		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
 
 	<bean id="mobileAccountService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
-		<property name="serviceUrl" value="rmi://127.0.0.1:8089/MobileAccountService" />
+		<property name="serviceUrl" value="rmi://127.0.0.1:8089/MobileAccountService" /> <!--调用的RMI服务的地址-->
 		<property name="serviceInterface"
-				  value="test.Rmi.AccountService" />
+				  value="test.Rmi.AccountService" /> <!--调用的服务的接口-->
+		<property name="refreshStubOnConnectFailure" value="true"/> <!--解决重启 rmi 的服务器后会出现拒绝连接或找不到服务对象的错误-->
+		<!--
+			 stub查询的另一个问题是，目标RMI服务器和RMI注册项在查询时要为可用的。如果客户端在服务器启动之前，
+			 尝试查询和缓存该服务stub，那么客户端的启动将会失败（即使还不需要该服务）。
+			 为了能够惰性查询服务stub，设定RmiProxyFactoryBean的lookupStubOnStarup标志为false。
+			 然后在第一次访问 时查询该stub，也就是说，当代理上的第一个方法被调用的时候去主动查询stub，
+			 同时被缓存。这也有一个缺点，就是直到第一次调用，否则无法确认目标 服务是否实际存在。
+		-->
+		<property name="lookupStubOnStartup" value="false"/>
 	</bean>
 
 
