@@ -1,6 +1,7 @@
 package com.pbc.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.pbc.domainentity.Dto.UserLoginDto;
 import com.pbc.domainentity.qentity.userInfo.AddUserInfo;
 import com.pbc.domainentity.qentity.userInfo.UpdUserInfo;
 import com.pbc.po.UserInfo;
@@ -126,5 +127,17 @@ public class UserInfoController extends BaseController {
         log.debug("用户展示列表");//发布到服务器之后，供调试时候查看log使用
         map.put("allUser", userInfoService.getAll());
         return "AllUserInfo";
+    }
+
+    /**
+     * 用户登录
+     * @param userLoginDto
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "login", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
+    public String login(@RequestBody UserLoginDto userLoginDto){
+        log.debug("登录用户：" + toJSONString(userLoginDto));
+        return toJSONString(userInfoService.login(userLoginDto));
     }
 }

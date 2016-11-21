@@ -1,5 +1,6 @@
 package com.pbc.service;
 
+import com.pbc.domainentity.Dto.UserLoginDto;
 import com.pbc.po.UserInfo;
 import org.apache.poi.ss.formula.functions.T;
 
@@ -14,6 +15,7 @@ public interface UserInfoService {
     int add(UserInfo u);
     int upd(UserInfo u);
     int del(int id);
+    UserInfo login(UserLoginDto userLoginDto);
 }
 
 /**
