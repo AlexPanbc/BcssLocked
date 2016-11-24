@@ -110,7 +110,11 @@
             <artifactId>spring-jms</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+        </dependency>
         <!-- mybatis 包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
