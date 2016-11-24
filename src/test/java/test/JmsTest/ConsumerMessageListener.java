@@ -7,6 +7,8 @@ import javax.jms.TextMessage;
 
 /**
  * 功能：定义消息处理的Listener
+ *   要定义处理消息的MessageListener我们只需要实现JMS规范中的MessageListener接口就可以了。
+ *   MessageListener接口中只有一个方法onMessage方法，当接收到消息的时候会自动调用该方法。
  * Created by liuhuichao on 2016/11/24.
  */
 public class ConsumerMessageListener implements MessageListener {
