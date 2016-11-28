@@ -4,10 +4,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
 import javax.annotation.Resource;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
+import javax.jms.*;
 
 /**
  * 功能：消息的生产者实现类
@@ -23,7 +20,8 @@ public class ProducerServiceImpl implements ProducerService {
         System.out.println("--------生产者发送了一个消息--------");
         System.out.println("生产者发送的消息内容为："+message);
 
-        jmsTemplate.send(destination, new MessageCreator() {//通过jmsTemplate发送消息到目的消费者
+        jmsTemplate.setDeliveryMode(DeliveryMode.PERSISTENT);//设置持久化到kahadb
+        jmsTemplate.send(destination,new MessageCreator() {//通过jmsTemplate发送消息到目的消费者
             @Override
             public Message createMessage(Session session) throws JMSException {
                 return session.createTextMessage(message);
