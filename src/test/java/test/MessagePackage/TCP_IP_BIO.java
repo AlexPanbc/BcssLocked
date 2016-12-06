@@ -28,7 +28,8 @@ public class TCP_IP_BIO {
         PrintWriter out=new PrintWriter(socket.getOutputStream(),true);
         /**向服务器发送字符串信息，此处即使写失败，也不会抛出异常信息，并且一直阻塞到写入操作系统或网络IO出现异常*/
         out.println("chifanla");
-        /**阻塞读取服务端的返回信息，一下代码会阻塞到服务端返回信息或者网络IO出现异常，如果希望在超时一段时间就不阻塞了，那么久需要在创建socket之后，调用setTimeOut*/
+        /**阻塞读取服务端的返回信息，一下代码会阻塞到服务端返回信息或者网络IO出现异常，如果希望在超时一段时间就不阻塞了，
+         * 那么久需要在创建socket之后，调用setTimeOut*/
         //in.readLine();
     }
 

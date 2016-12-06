@@ -4,10 +4,12 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Set;
 
@@ -49,17 +51,35 @@ public class TCP_IP_NIO {
                     try{
                         int ret=0;
                         try{
-
-
+                            /**读取目前可读的流，sc.read返回的为成功复制到bytebuffer中的字节数；
+                             * 此步骤为阻塞操作，值可能为0；当已经是流的结尾时，返回-1
+                             * */
+                            while((ret=sc.read(byteBuffer))>0){
+                                readBytes+=ret;
+                            }
                         }finally{
-
+                            byteBuffer.flip();
                         }
                     }finally{
-
+                        if(byteBuffer!=null){
+                            byteBuffer.clear();
+                        }
                     }
-
+                }else if(key.isWritable()){/**可写入流*/
+                    //取消对OP_WRITE事件的注册
+                    key.interestOps(key.interestOps()&(~selectionKey.OP_WRITE));
+                    SocketChannel sc= (SocketChannel) key.channel();
+                    /**此步骤为阻塞操作，直到写入操作系统发送缓冲区或网路IO出现异常，返回的为成功写入的字节数，当操作系统的发送缓冲区已满，此处返回0*/
+                    ByteBuffer byteBuffer=ByteBuffer.allocate(1024);
+                    sc.read(byteBuffer);
+                    int writtenedSize=sc.write(byteBuffer);
+                    //如未写入，则继续注册感兴趣的OP_WRITE事件
+                    if(writtenedSize==0){
+                        key.interestOps(key.interestOps() | selectionKey.OP_WRITE);
+                    }
                 }
             }
+            selector.selectedKeys().clear();
         }
 
 
@@ -68,7 +88,19 @@ public class TCP_IP_NIO {
     }
 
     @Test
-    public void serverStart(){
+    public void serverStart() throws IOException {
+        ServerSocketChannel ssc=ServerSocketChannel.open();
+        ServerSocket serverSocket=ssc.socket();
+        //绑定要监听的端口
+        serverSocket.bind(new InetSocketAddress(8888));
+        ssc.configureBlocking(false);
+        Selector selector= Selector.open();
+        //注册感兴趣的事件连接
+        ssc.register(selector,SelectionKey.OP_ACCEPT);
+        /**
+         * 之后采取和客户端相同的方式对selector.select进行轮询。。。但是要增加一个key.isAcceptable的处理。。。
+         * */
+
 
     }
 }

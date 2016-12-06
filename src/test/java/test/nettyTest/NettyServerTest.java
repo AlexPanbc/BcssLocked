@@ -51,7 +51,7 @@ public class NettyServerTest {
                 @Override
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
                     //socketChannel.pipeline().addLast(new DiscardServerHandler());
-                    socketChannel.pipeline().addLast(new DiscardServerHandler());
+                    socketChannel.pipeline().addLast(new TimeServerHandler());
                 }
             });
             /**
