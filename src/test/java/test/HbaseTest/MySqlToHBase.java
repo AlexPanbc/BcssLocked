@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * 功
+ * 功能：迁移mysql上电池历史数据到hbase
  * Created by liuhuichao on 2016/12/6.
  */
 public class MySqlToHBase {
@@ -59,7 +59,7 @@ public class MySqlToHBase {
         HTable table=null;
 
         Statement stmt=null;
-        String strQuery="SELECT * FROM `res_battery_data_history`";
+        String strQuery="SELECT * FROM `res_battery_data_history` limit 10000,100000";
         dbConn=connectDB();//连接mysql
         table=connectHBase("batteryDataHistory");//连接HBase
         try{
@@ -102,25 +102,25 @@ public class MySqlToHBase {
                 /**
                  * family:volumnData
                  */
-                Float vol1 = rs.getFloat("v1");
-                Float vol2 = rs.getFloat("v2");
-                Float vol3 = rs.getFloat("v3");
-                Float vol4 = rs.getFloat("v4");
-                Float vol5 = rs.getFloat("v5");
-                Float vol6 = rs.getFloat("v6");
-                Float vol7 = rs.getFloat("v7");
-                Float vol8 = rs.getFloat("v8");
-                Float vol9 = rs.getFloat("v9");
-                Float vol10 = rs.getFloat("v10");
-                Float vol11 = rs.getFloat("v11");
-                Float vol12 = rs.getFloat("v12");
-                Float vol13 = rs.getFloat("v13");
-                Float vol14 = rs.getFloat("v14");
-                Float vol15 = rs.getFloat("v15");
-                Float vol16 = rs.getFloat("v16");
-                Float vol17 = rs.getFloat("v17");
-                Float vol18 = rs.getFloat("v18");
-                Float vol19 = rs.getFloat("v19");
+                Float vol1 = rs.getFloat("vol1");
+                Float vol2 = rs.getFloat("vol2");
+                Float vol3 = rs.getFloat("vol3");
+                Float vol4 = rs.getFloat("vol4");
+                Float vol5 = rs.getFloat("vol5");
+                Float vol6 = rs.getFloat("vol6");
+                Float vol7 = rs.getFloat("vol7");
+                Float vol8 = rs.getFloat("vol8");
+                Float vol9 = rs.getFloat("vol9");
+                Float vol10 = rs.getFloat("vol10");
+                Float vol11 = rs.getFloat("vol11");
+                Float vol12 = rs.getFloat("vol12");
+                Float vol13 = rs.getFloat("vol13");
+                Float vol14 = rs.getFloat("vol14");
+                Float vol15 = rs.getFloat("vol15");
+                Float vol16 = rs.getFloat("vol16");
+                Float vol17 = rs.getFloat("vol17");
+                Float vol18 = rs.getFloat("vol18");
+                Float vol19 = rs.getFloat("vol19");
                 put.add(Bytes.toBytes("volumnData"), Bytes.toBytes("v1"), Bytes.toBytes(vol1));
                 put.add(Bytes.toBytes("volumnData"), Bytes.toBytes("v2"), Bytes.toBytes(vol2));
                 put.add(Bytes.toBytes("volumnData"), Bytes.toBytes("v3"), Bytes.toBytes(vol3));
