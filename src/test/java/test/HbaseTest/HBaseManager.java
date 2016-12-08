@@ -4,6 +4,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTable;
+import org.apache.hadoop.hbase.client.HTablePool;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class HBaseManager extends Thread {
     public Configuration config;
     public HTable table;
     public HBaseAdmin admin;
+
 
     /**
      * 构造：配置初始化
