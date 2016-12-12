@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 功能：管理电池历史数据
@@ -89,10 +90,10 @@ public class HBaseBatteryDataManager extends Thread {
         put.addColumn(Bytes.toBytes(colunm_family_baseData),Bytes.toBytes("soc"),Bytes.toBytes(resBatteryDataHistory.getSoc()));//总电压
         put.addColumn(Bytes.toBytes(colunm_family_baseData),Bytes.toBytes("create_time"),Bytes.toBytes(resBatteryDataHistory.getCreateTime()));//创建时间
         if(resBatteryDataHistory.getCityId()!=null){
-            put.addColumn(Bytes.toBytes(colunm_family_baseData),Bytes.toBytes("create_time"),Bytes.toBytes(resBatteryDataHistory.getCityId()));//城市ID
+            put.addColumn(Bytes.toBytes(colunm_family_baseData),Bytes.toBytes("city_id"),Bytes.toBytes(resBatteryDataHistory.getCityId()));//城市ID
         }
         if(resBatteryDataHistory.getVehicleId()!=null){
-            put.addColumn(Bytes.toBytes(colunm_family_baseData),Bytes.toBytes("create_time"),Bytes.toBytes(resBatteryDataHistory.getVehicleId()));//车辆ID
+            put.addColumn(Bytes.toBytes(colunm_family_baseData),Bytes.toBytes("vehicle_id"),Bytes.toBytes(resBatteryDataHistory.getVehicleId()));//车辆ID
         }
         put.addColumn(Bytes.toBytes(colunm_family_extraData),Bytes.toBytes("create_user"),Bytes.toBytes(resBatteryDataHistory.getBatteryNo()));//创建人
         put.addColumn(Bytes.toBytes(colunm_family_extraData),Bytes.toBytes("source"),Bytes.toBytes(resBatteryDataHistory.getSource()));//数据来源
@@ -101,6 +102,7 @@ public class HBaseBatteryDataManager extends Thread {
         put.addColumn(Bytes.toBytes(colunm_family_extraData),Bytes.toBytes("remarks"),Bytes.toBytes(resBatteryDataHistory.getRemarks()));//备注
         put.addColumn(Bytes.toBytes(colunm_family_extraData),Bytes.toBytes("test_user_name"),Bytes.toBytes(resBatteryDataHistory.getTestUserName()));//测试用户
         table.put(put);
+        table.close();
     }
 
 
@@ -117,14 +119,177 @@ public class HBaseBatteryDataManager extends Thread {
         }
         ResBatteryDataHistory resBatteryDataHistory=new ResBatteryDataHistory();
         for(KeyValue kv :result.list()){
-            if(Bytes.toString(kv.getFamilyArray())==""){
-
+            if(Bytes.toString(kv.getFamilyArray())==colunm_family_baseData){
+                switch (Bytes.toString(kv.getQualifier())){
+                    case "battery_no":
+                        resBatteryDataHistory.setBatteryNo(Bytes.toString(kv.getValue()));
+                        break;
+                    case "battery_type":
+                        resBatteryDataHistory.setBatteryType(Integer.parseInt(Bytes.toString(kv.getValue())));
+                        break;
+                    case "voltage_deviation":
+                        resBatteryDataHistory.setVoltageDeviation(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "total_voltage":
+                        resBatteryDataHistory.setVoltageDeviation(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "total_current":
+                        resBatteryDataHistory.setTotalCurrent(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol1":
+                        resBatteryDataHistory.setVol1(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol2":
+                        resBatteryDataHistory.setVol2(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol3":
+                        resBatteryDataHistory.setVol3(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol4":
+                        resBatteryDataHistory.setVol4(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol5":
+                        resBatteryDataHistory.setVol5(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol6":
+                        resBatteryDataHistory.setVol6(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol7":
+                        resBatteryDataHistory.setVol7(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol8":
+                        resBatteryDataHistory.setVol8(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol9":
+                        resBatteryDataHistory.setVol9(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol10":
+                        resBatteryDataHistory.setVol10(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol11":
+                        resBatteryDataHistory.setVol11(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol12":
+                        resBatteryDataHistory.setVol12(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol13":
+                        resBatteryDataHistory.setVol13(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol14":
+                        resBatteryDataHistory.setVol14(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol15":
+                        resBatteryDataHistory.setVol15(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol16":
+                        resBatteryDataHistory.setVol16(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol17":
+                        resBatteryDataHistory.setVol17(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol18":
+                        resBatteryDataHistory.setVol18(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vol19":
+                        resBatteryDataHistory.setVol19(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "temprature1":
+                        resBatteryDataHistory.setTemprature1(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "temprature2":
+                        resBatteryDataHistory.setTemprature2(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "charge_num":
+                        resBatteryDataHistory.setChargeNum(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "soc":
+                        resBatteryDataHistory.setSoc(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "create_time":
+                        resBatteryDataHistory.setCreateTime(Bytes.toString(kv.getValue()));
+                        break;
+                    case "city_id":
+                        resBatteryDataHistory.setCityId(Integer.parseInt(Bytes.toString(kv.getValue())));
+                        break;
+                    case "vehicle_id":
+                        resBatteryDataHistory.setVehicleId(Integer.parseInt(Bytes.toString(kv.getValue())));
+                        break;
+                }
+            }
+            if(Bytes.toString(kv.getFamilyArray())==colunm_family_extraData){
+                switch (Bytes.toString(kv.getQualifier())){
+                    case "create_user" :
+                        resBatteryDataHistory.setCreateUser(Integer.parseInt(Bytes.toString(kv.getValue())));
+                        break;
+                    case "source" :
+                        resBatteryDataHistory.setSource(Integer.parseInt(Bytes.toString(kv.getValue())));
+                        break;
+                    case "longtitude" :
+                        resBatteryDataHistory.setLongtitude(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "latitude" :
+                        resBatteryDataHistory.setLatitude(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        break;
+                    case "remarks" :
+                        resBatteryDataHistory.setRemarks(Bytes.toString(kv.getValue()));
+                        break;
+                    case "test_user_name" :
+                        resBatteryDataHistory.setTestUserName(Bytes.toString(kv.getValue()));
+                        break;
+                }
             }
         }
+        return resBatteryDataHistory;
+    }
 
-        return null;
+    /**
+     * 获取电池数据某个单元格的数据
+     * @param rowKey
+     * @param colFamily
+     * @param col
+     * @return
+     */
+    public  String getCellData(String rowKey,String colFamily,String col) throws IOException {
+        Get get = new Get(Bytes.toBytes(rowKey));
+        get.addColumn(Bytes.toBytes(colFamily),Bytes.toBytes(col));
+        //获取的result数据是结果集，还需要格式化输出想要的数据才行
+        Result result = table.get(get);
+        String cellValue=new String(result.getValue(colFamily.getBytes(),col==null?null:col.getBytes())).intern();
+        table.close();
+        return cellValue;
+    }
+
+    /**
+     * 更新表中的一个单元格
+     * @param rowKey
+     * @param familyName
+     * @param columnName
+     * @param value
+     */
+   public void  updateCell(String rowKey,String familyName, String columnName, String value) throws IOException {
+       Put put = new Put(Bytes.toBytes(rowKey));
+       put.addColumn(Bytes.toBytes(familyName), Bytes.toBytes(columnName),
+               Bytes.toBytes(value));
+
+       table.put(put);
+       table.close();
+   }
+
+    /**
+     * 删除一个单元格
+     * @param rowKey
+     * @param familyName
+     * @param columnName
+     */
+    public void deleteCell( String rowKey,String familyName, String columnName) throws IOException {
+        Delete delete = new Delete(Bytes.toBytes(rowKey));
+        delete.addColumn(Bytes.toBytes(familyName),
+                Bytes.toBytes(columnName));
+
+        table.delete(delete);
+        table.close();
     }
 
 
 
-}
+   }
