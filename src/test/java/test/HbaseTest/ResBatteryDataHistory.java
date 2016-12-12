@@ -9,7 +9,6 @@ import java.util.Date;
  */
 public class ResBatteryDataHistory implements Serializable {
 
-    private Integer id;
 
     private String batteryNo;
 
@@ -19,7 +18,7 @@ public class ResBatteryDataHistory implements Serializable {
 
     private Float totalVoltage;
 
-    private Date createTime;
+    private String createTime;
 
     private Integer createUser;
 
@@ -81,15 +80,12 @@ public class ResBatteryDataHistory implements Serializable {
 
     private String testUserName;
 
+    private int cityId;
+
+    private int vehicleId;
+
+
     private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getBatteryNo() {
         return batteryNo;
@@ -123,11 +119,11 @@ public class ResBatteryDataHistory implements Serializable {
         this.totalVoltage = totalVoltage;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -369,5 +365,21 @@ public class ResBatteryDataHistory implements Serializable {
 
     public void setTestUserName(String testUserName) {
         this.testUserName = testUserName;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
+
+    public int getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
     }
 }
