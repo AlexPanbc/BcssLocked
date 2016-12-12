@@ -80,9 +80,9 @@ public class ResBatteryDataHistory implements Serializable {
 
     private String testUserName;
 
-    private int cityId;
+    private Integer cityId;
 
-    private int vehicleId;
+    private Integer vehicleId;
 
 
     private static final long serialVersionUID = 1L;
@@ -367,19 +367,19 @@ public class ResBatteryDataHistory implements Serializable {
         this.testUserName = testUserName;
     }
 
-    public int getCityId() {
+    public Integer getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
 
-    public int getVehicleId() {
+    public Integer getVehicleId() {
         return vehicleId;
     }
 
-    public void setVehicleId(int vehicleId) {
+    public void setVehicleId(Integer vehicleId) {
         this.vehicleId = vehicleId;
     }
 }
