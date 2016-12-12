@@ -6,6 +6,8 @@ import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.filter.Filter;
+import org.apache.hadoop.hbase.filter.PageFilter;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Test;
 
@@ -152,5 +154,8 @@ public class HbaseCRUDTest {
         admin.disableTable("student");
         admin.deleteTable("student");
     }
+
+
+
 
 }
