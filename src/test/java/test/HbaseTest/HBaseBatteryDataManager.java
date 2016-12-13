@@ -5,9 +5,11 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -117,9 +119,353 @@ public class HBaseBatteryDataManager extends Thread {
         if(result==null){
             return null;
         }
+        return convertToData(result);
+    }
+
+    /**
+     * 获取电池数据某个单元格的数据
+     * @param rowKey
+     * @param colFamily
+     * @param col
+     * @return
+     */
+    public  String getCellData(String rowKey,String colFamily,String col) throws IOException {
+        Get get = new Get(Bytes.toBytes(rowKey));
+        get.addColumn(Bytes.toBytes(colFamily),Bytes.toBytes(col));
+        //获取的result数据是结果集，还需要格式化输出想要的数据才行
+        Result result = table.get(get);
+        String cellValue=new String(result.getValue(colFamily.getBytes(),col==null?null:col.getBytes())).intern();
+        table.close();
+        return cellValue;
+    }
+
+    /**
+     * 更新表中的一个单元格
+     * @param rowKey
+     * @param familyName
+     * @param columnName
+     * @param value
+     */
+   public void  updateCell(String rowKey,String familyName, String columnName, String value) throws IOException {
+       Put put = new Put(Bytes.toBytes(rowKey));
+       put.addColumn(Bytes.toBytes(familyName), Bytes.toBytes(columnName),
+               Bytes.toBytes(value));
+
+       table.put(put);
+       table.close();
+   }
+
+    /**
+     * 删除一个单元格
+     * @param rowKey
+     * @param familyName
+     * @param columnName
+     */
+    public void deleteCell( String rowKey,String familyName, String columnName) throws IOException {
+        Delete delete = new Delete(Bytes.toBytes(rowKey));
+        delete.addColumn(Bytes.toBytes(familyName),
+                Bytes.toBytes(columnName));
+        table.delete(delete);
+        table.close();
+    }
+
+    /**
+     * 删除一行
+     * @param rowKey
+     */
+    public void deleteAllColumns(String rowKey) throws IOException {
+        Delete delete = new Delete(Bytes.toBytes(rowKey));
+        table.delete(delete);
+        table.close();
+    }
+
+    /**
+     * 获取所有数据
+     * @param size
+     * @return
+     */
+    public List<ResBatteryDataHistory> getResultScans(int size) throws IOException {
+        Scan scan = new Scan();
+        ResultScanner resultScanner = null;
+        List<ResBatteryDataHistory> list=new ArrayList<>() ;
+        long beginTime=System.currentTimeMillis();
+        resultScanner=table.getScanner(scan);
+        long endTime=System.currentTimeMillis();
+        double spendTime=(endTime-beginTime)/1000.0;
+        if(resultScanner==null){
+            return null;
+        }
+        for (Result result : resultScanner){
+            list.add(convertToData(result));
+        }
+        table.close();
+        return list;
+    }
+
+
+    /**
+     *  * 根据单个列查询数据 【and查询】
+     *      例如，查询extraData:create_user==‘1’的所有数据
+     * @param queryConditionList  条件拼接列表
+     * @return
+     * @throws IOException
+     */
+    public List<ResBatteryDataHistory> QueryDataByConditionsAnd(List<QueryCondition> queryConditionList) throws IOException {
+        if(queryConditionList==null || queryConditionList.size()<1){
+            return null;
+        }
+        ResultScanner rs = null;
+        List<ResBatteryDataHistory> list=new ArrayList<>() ;
+        List<Filter> filters = new ArrayList<Filter>();
+        for(QueryCondition query : queryConditionList){
+            SingleColumnValueFilter filter = new SingleColumnValueFilter(
+                    Bytes.toBytes(query.getFamily()), Bytes.toBytes(query.getQualifier()),
+                    query.getCompareOp(),Bytes.toBytes(query.getValue()));
+            filter.setFilterIfMissing(true); //设置这些列不存在的数据不返回
+            filters.add(filter);
+        }
+        FilterList filterList = new FilterList(filters);
+        Scan scan = new Scan();
+        scan.setFilter(filterList);
+        rs = table.getScanner(scan);
+        for (Result result : rs){
+            list.add(convertToData(result));
+        }
+        table.close();
+        return list;
+    }
+
+
+    /**
+     * 查询数据 【Or查询】
+     * @param queryConditionList
+     * @return
+     */
+    public List<ResBatteryDataHistory> QueryDataByConditionsOr(List<QueryCondition> queryConditionList) throws IOException {
+        if(queryConditionList==null || queryConditionList.size()<1){
+            return null;
+        }
+        List<ResBatteryDataHistory> list=new ArrayList<>() ;
+        ResultScanner rs = null;
+        List<Filter> filters = new ArrayList<Filter>();
+        Scan scan = new Scan();
+        for(QueryCondition query : queryConditionList){
+            SingleColumnValueFilter filter = new SingleColumnValueFilter(
+                    Bytes.toBytes(query.getFamily()), Bytes.toBytes(query.getQualifier()),
+                    query.getCompareOp(),Bytes.toBytes(query.getValue()));
+            filter.setFilterIfMissing(true);
+            filters.add(filter);
+        }
+        FilterList filterList = new FilterList(
+                FilterList.Operator.MUST_PASS_ONE, filters);
+        scan.setFilter(filterList);
+        rs = table.getScanner(scan);
+        for (Result result : rs){
+            list.add(convertToData(result));
+        }
+        table.close();
+        return list;
+    }
+
+    /**
+     * 混合条件查询
+     * @param queryConditionList
+     * @return
+     * @throws IOException
+     */
+    public List<ResBatteryDataHistory> QueryDataByConditions(List<QueryCondition> queryConditionList) throws IOException {
+        if(queryConditionList==null || queryConditionList.size()<1){
+            return null;
+        }
+        List<ResBatteryDataHistory> list=new ArrayList<>() ;
+        Scan scan = new Scan();
+        FilterList filterList = null;
+        FilterList.Operator operator = null;
+        List<Filter> filters = new ArrayList<Filter>();
+        ResultScanner rs = null;
+        for(QueryCondition query : queryConditionList){
+
+            SingleColumnValueFilter filter = new SingleColumnValueFilter(
+                    Bytes.toBytes(query.getFamily()), Bytes.toBytes(query.getQualifier()),
+                    query.getCompareOp(),Bytes.toBytes(query.getValue()));
+            filter.setFilterIfMissing(true);  //去掉没有这种列的数据
+
+            if(query.getOperator()!=null){//有操作符的时候
+                if (operator == null) {
+                    operator = query.getOperator();
+                    filterList = new FilterList(
+                            query.getOperator());
+                    filterList.addFilter(filter);
+                    System.out.println("filterList==1" + filterList);
+                } else if (operator.equals(query.getOperator())) {
+                    filterList.addFilter(filter);
+                } else {
+                    filterList.addFilter(filter);
+                    System.out.println("filterList==2" + filterList);
+                    FilterList addFilterList = new FilterList(
+                            query.getOperator());
+                    addFilterList.addFilter(filterList);
+                    System.out.println("addFilterList==1" + addFilterList);
+                    filterList = addFilterList;
+                    System.out.println("filterList==3" + filterList);
+                }
+            } else {
+                if (filterList == null) {
+                    filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);// 默认只有一个条件的时候
+                }
+                filterList.addFilter(filter);
+            }
+        }
+        scan.setFilter(filterList);
+        rs = table.getScanner(scan);
+        for (Result result : rs){
+            list.add(convertToData(result));
+        }
+        table.close();
+        return list;
+    }
+
+    /**
+     *混合条件分页查询
+     * @param queryConditionList
+     * @param pageSize
+     * @param lastRow
+     * @return
+     */
+    public  List<ResBatteryDataHistory>  QueryDataByConditionsAndPage(List<QueryCondition> queryConditionList, int pageSize,byte[] lastRow) throws IOException {
+        List<ResBatteryDataHistory> list=new ArrayList<>() ;
+        final byte[] POSTFIX = new byte[] { 0x00 };
+        ResultScanner rs = null;
+        Scan scan = new Scan();
+        FilterList filterList = null;
+        FilterList.Operator operator = null;
+
+        //拼接查询条件
+        for(QueryCondition query : queryConditionList){
+            SingleColumnValueFilter filter = new SingleColumnValueFilter(
+                    Bytes.toBytes(query.getFamily()), Bytes.toBytes(query.getQualifier()),
+                    query.getCompareOp(),Bytes.toBytes(query.getValue()));
+            filter.setFilterIfMissing(true);  //去掉没有这种列的数据
+
+            if(query.getOperator()!=null){//有操作符的时候
+                if (operator == null) {
+                    operator = query.getOperator();
+                    filterList = new FilterList(
+                            query.getOperator());
+                    filterList.addFilter(filter);
+                    System.out.println("filterList==1" + filterList);
+                } else if (operator.equals(query.getOperator())) {
+                    filterList.addFilter(filter);
+                } else {
+                    filterList.addFilter(filter);
+                    System.out.println("filterList==2" + filterList);
+                    FilterList addFilterList = new FilterList(
+                            query.getOperator());
+                    addFilterList.addFilter(filterList);
+                    System.out.println("addFilterList==1" + addFilterList);
+                    filterList = addFilterList;
+                    System.out.println("filterList==3" + filterList);
+                }
+            } else {
+                if (filterList == null) {
+                    filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);// 默认只有一个条件的时候
+                }
+                filterList.addFilter(filter);
+            }
+        }
+
+        FilterList pageFilterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);// 默认只有一个条件的时候
+        Filter pageFilter = new PageFilter(pageSize);
+        pageFilterList.addFilter(pageFilter);
+        pageFilterList.addFilter(filterList);
+        if (lastRow != null) {
+            // 注意这里添加了POSTFIX操作，不然死循环了
+            byte[] startRow = Bytes.add(lastRow, POSTFIX);
+            scan.setStartRow(startRow);
+        }
+        System.out.println(pageFilterList + ":pageFilterList");
+        scan.setFilter(pageFilterList);
+        rs = table.getScanner(scan);
+        for (Result result : rs){
+            list.add(convertToData(result));
+        }
+        table.close();
+        return list;
+    }
+
+    /**
+     * 分页查询——无条件
+     * @param pageSize
+     * @param lastRow
+     * @return
+     * @throws IOException
+     */
+    public  List<ResBatteryDataHistory>  QueryDataByPage( int pageSize,byte[] lastRow) throws IOException {
+        List<ResBatteryDataHistory> list=new ArrayList<>() ;
+        final byte[] POSTFIX = new byte[] { 0x00 };
+        Scan scan = new Scan();
+        ResultScanner resultScanner = null;
+        Table table = null;
+        Filter filter = new PageFilter(pageSize);
+        scan.setFilter(filter);
+        if (lastRow != null) {
+            // 注意这里添加了POSTFIX操作，不然死循环了
+            byte[] startRow = Bytes.add(lastRow, POSTFIX);
+            scan.setStartRow(startRow);
+        }
+        resultScanner = table.getScanner(scan);
+        for (Result result : resultScanner){
+            list.add(convertToData(result));
+        }
+        table.close();
+        return list;
+    }
+
+    /**
+     * 查询总行数
+     * @param pageSize
+     * @return
+     */
+    public int QueryDataByPage(int pageSize) throws IOException {
+        final byte[] POSTFIX = new byte[] { 0x00 };
+        int totalRows = 0;
+        Filter filter = new PageFilter(pageSize);
+        byte[] lastRow = null;
+        while (true) {
+            Scan scan = new Scan();
+            scan.setFilter(filter);
+            if (lastRow != null) {
+                // 注意这里添加了POSTFIX操作，不然死循环了
+                byte[] startRow = Bytes.add(lastRow, POSTFIX);
+                scan.setStartRow(startRow);
+            }
+            ResultScanner scanner = table.getScanner(scan);
+            int localRows = 0;
+            Result result;
+            while ((result = scanner.next()) != null) {
+                System.out.println(localRows++ + ":" + result);
+                totalRows++;
+                lastRow = result.getRow();
+            }
+            scanner.close();
+            if (localRows == 0)
+                break;
+        }
+        return totalRows;
+    }
+
+    /**
+     * 将Result转换成电池历史数据对象
+     * @param result
+     * @return
+     */
+    private ResBatteryDataHistory convertToData(Result result){
         ResBatteryDataHistory resBatteryDataHistory=new ResBatteryDataHistory();
+        if(result==null || result.list().size()<1){
+            return null;
+        }
         for(KeyValue kv :result.list()){
-            if(Bytes.toString(kv.getFamilyArray())==colunm_family_baseData){
+            if(Bytes.toString(kv.getFamilyArray()).equals(colunm_family_baseData)){
                 switch (Bytes.toString(kv.getQualifier())){
                     case "battery_no":
                         resBatteryDataHistory.setBatteryNo(Bytes.toString(kv.getValue()));
@@ -216,7 +562,7 @@ public class HBaseBatteryDataManager extends Thread {
                         break;
                 }
             }
-            if(Bytes.toString(kv.getFamilyArray())==colunm_family_extraData){
+            if(Bytes.toString(kv.getFamilyArray()).equals(colunm_family_extraData)){
                 switch (Bytes.toString(kv.getQualifier())){
                     case "create_user" :
                         resBatteryDataHistory.setCreateUser(Integer.parseInt(Bytes.toString(kv.getValue())));
@@ -239,55 +585,7 @@ public class HBaseBatteryDataManager extends Thread {
                 }
             }
         }
-        return resBatteryDataHistory;
-    }
-
-    /**
-     * 获取电池数据某个单元格的数据
-     * @param rowKey
-     * @param colFamily
-     * @param col
-     * @return
-     */
-    public  String getCellData(String rowKey,String colFamily,String col) throws IOException {
-        Get get = new Get(Bytes.toBytes(rowKey));
-        get.addColumn(Bytes.toBytes(colFamily),Bytes.toBytes(col));
-        //获取的result数据是结果集，还需要格式化输出想要的数据才行
-        Result result = table.get(get);
-        String cellValue=new String(result.getValue(colFamily.getBytes(),col==null?null:col.getBytes())).intern();
-        table.close();
-        return cellValue;
-    }
-
-    /**
-     * 更新表中的一个单元格
-     * @param rowKey
-     * @param familyName
-     * @param columnName
-     * @param value
-     */
-   public void  updateCell(String rowKey,String familyName, String columnName, String value) throws IOException {
-       Put put = new Put(Bytes.toBytes(rowKey));
-       put.addColumn(Bytes.toBytes(familyName), Bytes.toBytes(columnName),
-               Bytes.toBytes(value));
-
-       table.put(put);
-       table.close();
-   }
-
-    /**
-     * 删除一个单元格
-     * @param rowKey
-     * @param familyName
-     * @param columnName
-     */
-    public void deleteCell( String rowKey,String familyName, String columnName) throws IOException {
-        Delete delete = new Delete(Bytes.toBytes(rowKey));
-        delete.addColumn(Bytes.toBytes(familyName),
-                Bytes.toBytes(columnName));
-
-        table.delete(delete);
-        table.close();
+        return  resBatteryDataHistory;
     }
 
 
