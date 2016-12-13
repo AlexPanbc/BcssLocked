@@ -1,6 +1,7 @@
 package test.HbaseTest;
 
 import org.apache.hadoop.hbase.filter.CompareFilter;
+import org.apache.hadoop.hbase.filter.FilterList;
 
 /**
  *
@@ -13,12 +14,22 @@ public class QueryCondition {
     String qualifier; //列修饰符
     CompareFilter.CompareOp  compareOp; //操作符
     String value; //列值
+    FilterList.Operator operator;
+
 
     public QueryCondition(String family, String qualifier, CompareFilter.CompareOp compareOp, String value) {
         this.family = family;
         this.qualifier = qualifier;
         this.compareOp = compareOp;
         this.value = value;
+    }
+
+    public QueryCondition(String family, String qualifier, CompareFilter.CompareOp compareOp, String value, FilterList.Operator operator) {
+        this.family = family;
+        this.qualifier = qualifier;
+        this.compareOp = compareOp;
+        this.value = value;
+        this.operator = operator;
     }
 
     public String getFamily() {
@@ -51,5 +62,13 @@ public class QueryCondition {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public FilterList.Operator getOperator() {
+        return operator;
+    }
+
+    public void setOperator(FilterList.Operator operator) {
+        this.operator = operator;
     }
 }
