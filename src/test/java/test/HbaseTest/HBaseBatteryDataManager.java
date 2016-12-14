@@ -421,6 +421,7 @@ public class HBaseBatteryDataManager extends Thread {
         return list;
     }
 
+
     /**
      * 查询总行数
      * @param pageSize
