@@ -5,7 +5,7 @@ import org.apache.hadoop.hbase.filter.FilterList;
 
 /**
  *
- * 条件查询封装实体类
+ * HBase条件查询封装实体类
  * Created by liuhuichao on 2016/12/13.
  */
 public class QueryCondition {
@@ -14,7 +14,7 @@ public class QueryCondition {
     String qualifier; //列修饰符
     CompareFilter.CompareOp  compareOp; //操作符
     String value; //列值
-    FilterList.Operator operator;
+    FilterList.Operator operator;  //连接操作符
 
 
     public QueryCondition(String family, String qualifier, CompareFilter.CompareOp compareOp, String value) {
