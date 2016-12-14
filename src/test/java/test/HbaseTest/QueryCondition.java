@@ -13,18 +13,18 @@ public class QueryCondition {
     String family; //列族
     String qualifier; //列修饰符
     CompareFilter.CompareOp  compareOp; //操作符
-    String value; //列值
+    Byte[] value; //列值
     FilterList.Operator operator;  //连接操作符
 
 
-    public QueryCondition(String family, String qualifier, CompareFilter.CompareOp compareOp, String value) {
+    public QueryCondition(String family, String qualifier, CompareFilter.CompareOp compareOp, Byte[] value) {
         this.family = family;
         this.qualifier = qualifier;
         this.compareOp = compareOp;
         this.value = value;
     }
 
-    public QueryCondition(String family, String qualifier, CompareFilter.CompareOp compareOp, String value, FilterList.Operator operator) {
+    public QueryCondition(String family, String qualifier, CompareFilter.CompareOp compareOp, Byte[] value, FilterList.Operator operator) {
         this.family = family;
         this.qualifier = qualifier;
         this.compareOp = compareOp;
@@ -56,11 +56,11 @@ public class QueryCondition {
         this.compareOp = compareOp;
     }
 
-    public String getValue() {
+    public Byte[] getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Byte[] value) {
         this.value = value;
     }
 
