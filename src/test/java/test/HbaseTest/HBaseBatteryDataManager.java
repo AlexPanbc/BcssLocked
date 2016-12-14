@@ -117,7 +117,7 @@ public class HBaseBatteryDataManager extends Thread {
         if(resBatteryDataHistory.getVehicleId()!=null){
             put.addColumn(Bytes.toBytes(colunm_family_baseData),Bytes.toBytes("vehicle_id"),Bytes.toBytes(resBatteryDataHistory.getVehicleId()));//车辆ID
         }
-        put.addColumn(Bytes.toBytes(colunm_family_extraData),Bytes.toBytes("create_user"),Bytes.toBytes(resBatteryDataHistory.getBatteryNo()));//创建人
+        put.addColumn(Bytes.toBytes(colunm_family_extraData),Bytes.toBytes("create_user"),Bytes.toBytes(resBatteryDataHistory.getCreateUser()));//创建人
         put.addColumn(Bytes.toBytes(colunm_family_extraData),Bytes.toBytes("source"),Bytes.toBytes(resBatteryDataHistory.getSource()));//数据来源
         put.addColumn(Bytes.toBytes(colunm_family_extraData),Bytes.toBytes("longtitude"),Bytes.toBytes(resBatteryDataHistory.getLongtitude()));//精度
         put.addColumn(Bytes.toBytes(colunm_family_extraData),Bytes.toBytes("latitude"),Bytes.toBytes(resBatteryDataHistory.getLatitude()));//纬度
