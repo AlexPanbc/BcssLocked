@@ -9,6 +9,7 @@ import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,10 @@ public class HBaseBatteryDataManager extends Thread {
      * 构造：配置初始化
      */
     private HBaseBatteryDataManager() {
-        config= HBaseConfiguration.create();
+
+
+        //集群环境下使用的配置代码
+      /*  config= HBaseConfiguration.create();
         config.set("hbase.master",""); //HMaster地址
         config.set("hbase.zookeeper.property.clientPort",""); //Zookeeper端口设置
         config.set("hbase.zookeeper.quorum","");//Zookeeper队列名称
@@ -38,7 +42,23 @@ public class HBaseBatteryDataManager extends Thread {
             admin=new HBaseAdmin(config);
         }catch (IOException e){
             e.printStackTrace();
+        }*/
+
+
+        //单击环境下的config
+        config= HBaseConfiguration.create();
+        config.set("hbase.zookeeper.quorum","lhc-centos");
+        try{
+            table=new HTable(config, Bytes.toBytes("batteryTest")); //连接表
+        }catch (IOException e){
+            e.printStackTrace();
         }
+
+
+
+
+
+
     }
 
     /**
@@ -465,117 +485,117 @@ public class HBaseBatteryDataManager extends Thread {
         if(result==null || result.list().size()<1){
             return null;
         }
-        for(KeyValue kv :result.list()){
-            if(Bytes.toString(kv.getFamilyArray()).equals(colunm_family_baseData)){
+        for(KeyValue kv :result.raw()){
+            if(Bytes.toString(kv.getFamily()).equals(colunm_family_baseData)){
                 switch (Bytes.toString(kv.getQualifier())){
                     case "battery_no":
                         resBatteryDataHistory.setBatteryNo(Bytes.toString(kv.getValue()));
                         break;
                     case "battery_type":
-                        resBatteryDataHistory.setBatteryType(Integer.parseInt(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setBatteryType(Bytes.toInt(kv.getValue()));
                         break;
                     case "voltage_deviation":
-                        resBatteryDataHistory.setVoltageDeviation(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVoltageDeviation(Bytes.toFloat(kv.getValue()));
                         break;
                     case "total_voltage":
-                        resBatteryDataHistory.setVoltageDeviation(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setTotalVoltage(Bytes.toFloat(kv.getValue()));
                         break;
                     case "total_current":
-                        resBatteryDataHistory.setTotalCurrent(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setTotalCurrent(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol1":
-                        resBatteryDataHistory.setVol1(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol1(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol2":
-                        resBatteryDataHistory.setVol2(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol2(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol3":
-                        resBatteryDataHistory.setVol3(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol3(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol4":
-                        resBatteryDataHistory.setVol4(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol4(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol5":
-                        resBatteryDataHistory.setVol5(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol5(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol6":
-                        resBatteryDataHistory.setVol6(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol6(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol7":
-                        resBatteryDataHistory.setVol7(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol7(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol8":
-                        resBatteryDataHistory.setVol8(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol8(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol9":
-                        resBatteryDataHistory.setVol9(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol9(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol10":
-                        resBatteryDataHistory.setVol10(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol10(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol11":
-                        resBatteryDataHistory.setVol11(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol11(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol12":
-                        resBatteryDataHistory.setVol12(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol12(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol13":
-                        resBatteryDataHistory.setVol13(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol13(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol14":
-                        resBatteryDataHistory.setVol14(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol14(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol15":
-                        resBatteryDataHistory.setVol15(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol15(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol16":
-                        resBatteryDataHistory.setVol16(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol16(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol17":
-                        resBatteryDataHistory.setVol17(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol17(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol18":
-                        resBatteryDataHistory.setVol18(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol18(Bytes.toFloat(kv.getValue()));
                         break;
                     case "vol19":
-                        resBatteryDataHistory.setVol19(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVol19(Bytes.toFloat(kv.getValue()));
                         break;
                     case "temprature1":
-                        resBatteryDataHistory.setTemprature1(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setTemprature1(Bytes.toFloat(kv.getValue()));
                         break;
                     case "temprature2":
-                        resBatteryDataHistory.setTemprature2(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setTemprature2(Bytes.toFloat(kv.getValue()));
                         break;
                     case "charge_num":
-                        resBatteryDataHistory.setChargeNum(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setChargeNum(Bytes.toFloat(kv.getValue()));
                         break;
                     case "soc":
-                        resBatteryDataHistory.setSoc(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setSoc(Bytes.toFloat(kv.getValue()));
                         break;
                     case "create_time":
                         resBatteryDataHistory.setCreateTime(Bytes.toString(kv.getValue()));
                         break;
                     case "city_id":
-                        resBatteryDataHistory.setCityId(Integer.parseInt(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setCityId(Bytes.toInt(kv.getValue()));
                         break;
                     case "vehicle_id":
-                        resBatteryDataHistory.setVehicleId(Integer.parseInt(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setVehicleId(Bytes.toInt(kv.getValue()));
                         break;
                 }
             }
-            if(Bytes.toString(kv.getFamilyArray()).equals(colunm_family_extraData)){
+            if(Bytes.toString(kv.getFamily()).equals(colunm_family_extraData)){
                 switch (Bytes.toString(kv.getQualifier())){
                     case "create_user" :
-                        resBatteryDataHistory.setCreateUser(Integer.parseInt(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setCreateUser(Bytes.toInt(kv.getValue()));
                         break;
                     case "source" :
-                        resBatteryDataHistory.setSource(Integer.parseInt(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setSource(Bytes.toInt(kv.getValue()));
                         break;
                     case "longtitude" :
-                        resBatteryDataHistory.setLongtitude(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setLongtitude(Bytes.toFloat(kv.getValue()));
                         break;
                     case "latitude" :
-                        resBatteryDataHistory.setLatitude(Float.parseFloat(Bytes.toString(kv.getValue())));
+                        resBatteryDataHistory.setLatitude(Bytes.toFloat(kv.getValue()));
                         break;
                     case "remarks" :
                         resBatteryDataHistory.setRemarks(Bytes.toString(kv.getValue()));
