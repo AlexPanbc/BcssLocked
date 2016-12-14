@@ -382,4 +382,47 @@ public class ResBatteryDataHistory implements Serializable {
     public void setVehicleId(Integer vehicleId) {
         this.vehicleId = vehicleId;
     }
+
+    @Override
+    public String toString() {
+        return "ResBatteryDataHistory{" +
+                "batteryNo:'" + batteryNo + '\'' +
+                ", batteryType:" + batteryType +
+                ", voltageDeviation:" + voltageDeviation +
+                ", totalVoltage:" + totalVoltage +
+                ", createTime:'" + createTime + '\'' +
+                ", createUser:" + createUser +
+                ", source:" + source +
+                ", vol1:" + vol1 +
+                ", vol2:" + vol2 +
+                ", vol3:" + vol3 +
+                ", vol4:" + vol4 +
+                ", vol5:" + vol5 +
+                ", vol6:" + vol6 +
+                ", vol7:" + vol7 +
+                ", vol8:" + vol8 +
+                ", vol9:" + vol9 +
+                ", vol10:" + vol10 +
+                ", vol11:" + vol11 +
+                ", vol12:" + vol12 +
+                ", vol13:" + vol13 +
+                ", vol14:" + vol14 +
+                ", vol15:" + vol15 +
+                ", vol16:" + vol16 +
+                ", vol17:" + vol17 +
+                ", vol18:" + vol18 +
+                ", vol19:" + vol19 +
+                ", temprature1:" + temprature1 +
+                ", temprature2:" + temprature2 +
+                ", chargeNum:" + chargeNum +
+                ", longtitude:" + longtitude +
+                ", latitude:" + latitude +
+                ", remarks:'" + remarks + '\'' +
+                ", totalCurrent:" + totalCurrent +
+                ", soc:" + soc +
+                ", testUserName:'" + testUserName + '\'' +
+                ", cityId:" + cityId +
+                ", vehicleId:" + vehicleId +
+                '}';
+    }
 }
