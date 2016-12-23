@@ -1,5 +1,6 @@
 package test.HbaseTest;
 
+import net.sf.json.JSONArray;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
@@ -44,6 +45,7 @@ public class HbaseCRUDTest {
         admin.createTable(descriptor); //创建表
         System.out.println("student表创建成功！！！");
     }
+
 
     /**
      * 功能：想hbase中插入一行记录 --测试已通过
