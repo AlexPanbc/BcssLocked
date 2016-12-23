@@ -15,6 +15,7 @@ public class HbaseHelperTest {
     public void getRow() throws Exception {
 
         Object object = HbaseHelper.GetRow("t", "000023379223370555035661462");
+       // Object object = HbaseHelper.GetRow("t1", "001");
         if (object != null)
             System.out.println(JSONArray.fromObject(object));
         else

@@ -12,6 +12,7 @@ import com.pbc.utils.exceptions.HbaseModel.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,12 +35,12 @@ public class HbaseHelper {
      * @throws Exception
      */
     public static List<CellDate> GetRow(String tableName, String rowKey) throws Exception {
-        List<CellDate> cellDateList = null;
+        List<HbaseModel.CellDate> cellDateList = new ArrayList<HbaseModel.CellDate>();
         try {
             HTable table = new HTable(configuration, tableName);
             Result result = table.get(new Get(Bytes.toBytes(rowKey)));
             for (KeyValue value : result.raw()) {
-                CellDate cellDate = null;
+                HbaseModel.CellDate cellDate = new HbaseModel().new CellDate();
                 cellDate.setFamily(Bytes.toString(value.getFamily()));//所属列族名称
                 cellDate.setColumn(Bytes.toString(value.getQualifier()));//列名称
                 cellDate.setValue(Bytes.toString(value.getValue()));//存储的值
