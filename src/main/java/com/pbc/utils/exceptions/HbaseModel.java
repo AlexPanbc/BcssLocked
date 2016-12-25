@@ -46,7 +46,15 @@ public class HbaseModel {
     }
 
     public class InsertCellData extends HColumn {
-        public Object Value;
+        public String getValue() {
+            return Value;
+        }
+
+        public void setValue(String value) {
+            Value = value;
+        }
+
+        public String Value;
     }
 
     public class InsertRowData {
