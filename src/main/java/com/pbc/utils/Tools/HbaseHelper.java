@@ -3,6 +3,7 @@ package com.pbc.utils.Tools;
 import com.pbc.utils.exceptions.HbaseModel;
 import net.sf.json.JSONArray;
 import org.apache.cxf.common.i18n.Exception;
+import org.apache.directory.api.util.ByteBuffer;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.KeyValue;
@@ -16,6 +17,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class HbaseHelper {
 
     static {
         conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "hbase-centos");
+        conf.set("hbase.zookeeper.quorum", "192.168.1.31");
     }
     //<editor-fold desc="HBase Helper">
 
@@ -53,18 +55,40 @@ public class HbaseHelper {
      * @throws Exception
      */
     public static boolean Inst(String tableName, String rowKey, String family, String column, Object value) throws Exception {
+
         try {
-            HTable table = new HTable(conf, tableName);
-            Put put = new Put(Bytes.toBytes(rowKey));
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(value);
-            oos.flush();
-            put.add(Bytes.toBytes(family),Bytes.toBytes(column),bos.toByteArray());//Bytes.toBytes(JSONArray.fromObject(value).toString())
-            table.put(put);
-            table.close();
-            oos.close();
-            bos.close();
+            if(value instanceof String){
+                HTable table = new HTable(conf, tableName);
+                Put put = new Put(Bytes.toBytes(rowKey));
+              /*  ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(bos);
+                oos.writeObject(value);
+                oos.flush();*/
+                //类型判断：目前只支持9中类型
+                if(value instanceof String){
+                    put.add(Bytes.toBytes(family),Bytes.toBytes(column),Bytes.toBytes((String)value));//Bytes.toBytes(JSONArray.fromObject(value)
+                }else if(value instanceof java.nio.ByteBuffer){
+                    put.add(Bytes.toBytes(family),Bytes.toBytes(column),Bytes.toBytes((java.nio.ByteBuffer)value));//Bytes.toBytes(JSONArray.fromObject(value).toString())
+                }else if(value instanceof Boolean){
+                    put.add(Bytes.toBytes(family),Bytes.toBytes(column),Bytes.toBytes((Boolean) value));//Bytes.toBytes(JSONArray.fromObject(value)
+                }else if(value instanceof Long){
+                    put.add(Bytes.toBytes(family),Bytes.toBytes(column),Bytes.toBytes((Long) value));//Bytes.toBytes(JSONArray.fromObject(value)
+                }else if(value instanceof Float){
+                    put.add(Bytes.toBytes(family),Bytes.toBytes(column),Bytes.toBytes((Long) value));//Bytes.toBytes(JSONArray.fromObject(value)
+                }else if(value instanceof Double){
+                    put.add(Bytes.toBytes(family),Bytes.toBytes(column),Bytes.toBytes((Double) value));//Bytes.toBytes(JSONArray.fromObject(value)
+                }else if(value instanceof  Integer){
+                    put.add(Bytes.toBytes(family),Bytes.toBytes(column),Bytes.toBytes((Integer) value));//Bytes.toBytes(JSONArray.fromObject(value)
+                }else if(value instanceof  Short){
+                    put.add(Bytes.toBytes(family),Bytes.toBytes(column),Bytes.toBytes((Short) value));//Bytes.toBytes(JSONArray.fromObject(value)
+                }else if(value instanceof BigDecimal){
+                    put.add(Bytes.toBytes(family),Bytes.toBytes(column),Bytes.toBytes((BigDecimal) value));//Bytes.toBytes(JSONArray.fromObject(value)
+                }
+                table.put(put);
+                table.close();
+               /* oos.close();
+                bos.close();*/
+            }
         } catch (IOException e) {
             System.out.println(JSONArray.fromObject(e));
             return false;
