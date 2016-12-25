@@ -29,7 +29,7 @@ public class HbaseHelper {
 
     static {
         conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "192.168.1.31");
+        conf.set("hbase.zookeeper.quorum", "hbase-centos");
     }
     //<editor-fold desc="HBase Helper">
 
