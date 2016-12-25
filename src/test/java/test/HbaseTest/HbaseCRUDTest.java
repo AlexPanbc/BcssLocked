@@ -1,6 +1,8 @@
 package test.HbaseTest;
 
+
 import net.sf.json.JSONArray;
+import com.alibaba.druid.sql.visitor.functions.Char;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 public class HbaseCRUDTest {
     public static Configuration configuration;
+
 
     static {
         configuration = HBaseConfiguration.create();

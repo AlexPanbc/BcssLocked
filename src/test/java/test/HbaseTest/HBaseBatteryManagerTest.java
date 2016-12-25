@@ -2,7 +2,9 @@ package test.HbaseTest;
 
 import org.apache.activemq.openwire.tool.MultiSourceGenerator;
 import org.apache.hadoop.hbase.filter.CompareFilter;
+import org.apache.hadoop.hbase.filter.FilterList;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.hdfs.protocol.datatransfer.Op;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -161,10 +163,11 @@ public class HBaseBatteryManagerTest {
     public void QueryDataByConditionsAnd() throws IOException {
         List<QueryCondition> queryConditionList=new ArrayList<>();
         queryConditionList.add(new QueryCondition(manager.colunm_family_baseData,"vol1", CompareFilter.CompareOp.EQUAL,Bytes.toBytes(1F)));
+        queryConditionList.add(new QueryCondition(manager.colunm_family_baseData,"vol2", CompareFilter.CompareOp.EQUAL,Bytes.toBytes(2F)));
         long begin=System.currentTimeMillis();
         System.out.println(manager.QueryDataByConditionsAnd(queryConditionList).size());
         long end=System.currentTimeMillis();
-        System.out.println((end-begin)/1000.00);
+        System.out.println((end-begin)/1000.00);//未使用二级索引25.613
     }
 
     /**
@@ -174,10 +177,42 @@ public class HBaseBatteryManagerTest {
     @Test
     public void QueryDataByConditionsOrTest() throws IOException {
         List<QueryCondition> queryConditionList=new ArrayList<>();
+        queryConditionList.add(new QueryCondition(manager.colunm_family_baseData,"vol1", CompareFilter.CompareOp.EQUAL,Bytes.toBytes(6F)));
         queryConditionList.add(new QueryCondition(manager.colunm_family_baseData,"vol1", CompareFilter.CompareOp.EQUAL,Bytes.toBytes(1F)));
-        System.out.println(manager.QueryDataByConditionsOr(queryConditionList));
+        long begin=System.currentTimeMillis();
+        System.out.println(manager.QueryDataByConditionsOr(queryConditionList).size());
+        long end=System.currentTimeMillis();
+        System.out.println((end-begin)/1000.00);
     }
 
+    /**
+     * 组合条件查询
+     * @throws IOException
+     */
+    @Test
+    public void QueryDataByConditionsTest() throws IOException {
+        List<QueryCondition> queryConditionList=new ArrayList<>();
+        queryConditionList.add(new QueryCondition(manager.colunm_family_baseData,"vol1", CompareFilter.CompareOp.EQUAL,Bytes.toBytes(6F),FilterList.Operator.MUST_PASS_ALL));
+        queryConditionList.add(new QueryCondition(manager.colunm_family_baseData,"vol1", CompareFilter.CompareOp.EQUAL,Bytes.toBytes(1F), FilterList.Operator.MUST_PASS_ONE));
+        queryConditionList.add(new QueryCondition(manager.colunm_family_baseData,"vol1", CompareFilter.CompareOp.EQUAL,Bytes.toBytes(1F), FilterList.Operator.MUST_PASS_ONE));
+        long begin=System.currentTimeMillis();
+        System.out.println(manager.QueryDataByConditions(queryConditionList).size());
+        long end=System.currentTimeMillis();
+        System.out.println((end-begin)/1000.00);
+    }
 
+    /**
+     * 测试有条件的分页查询
+     */
+    @Test
+    //TODO:方法未通过
+    public void QueryDataByConditionsAndPageTest() throws IOException {
+        List<QueryCondition> queryConditionList=new ArrayList<>();
+        queryConditionList.add(new QueryCondition(manager.colunm_family_extraData,"test_user_name", CompareFilter.CompareOp.EQUAL,Bytes.toBytes("liuhuichao1128")));
+        long begin=System.currentTimeMillis();
+        System.out.println(manager.QueryDataByConditionsAndPage(queryConditionList,3,Bytes.add(null, new byte[] { 0x00 })));
+        long end=System.currentTimeMillis();
+        System.out.println((end-begin)/1000.00);
+    }
 
 }
