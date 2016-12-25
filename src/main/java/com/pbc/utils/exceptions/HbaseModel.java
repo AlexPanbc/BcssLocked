@@ -22,7 +22,7 @@ public class HbaseModel {
 
     }
 
-    public class RowDat {
+    public class RowData {
         private String RowKey;
 
         private List<CellDate> RowValue;
