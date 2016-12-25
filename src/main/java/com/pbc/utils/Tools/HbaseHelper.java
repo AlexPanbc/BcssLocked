@@ -1,6 +1,5 @@
 package com.pbc.utils.Tools;
 
-import com.mysql.jdbc.RowData;
 import com.pbc.utils.exceptions.HbaseModel;
 import net.sf.json.JSONArray;
 import org.apache.cxf.common.i18n.Exception;
@@ -9,11 +8,14 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.HTable;
+import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import com.pbc.utils.exceptions.HbaseModel.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,64 @@ public class HbaseHelper {
         conf.set("hbase.zookeeper.quorum", "hbase-centos");
     }
     //<editor-fold desc="HBase Helper">
+
+    //<editor-fold desc="插入 数据">
+
+    /// <summary>
+    /// 写入数据
+    /// </summary>
+    /// <param name="tablename">表名</param>
+    /// <param name="rowkey">行键</param>
+    /// <param name="family"></param>
+    /// <param name="columnname">列名</param>
+    /// <param name="value">值</param>
+
+    /**
+     * 写入数据
+     * @param tableName 表名
+     * @param rowKey 行键
+     * @param family 列族
+     * @param column 列名
+     * @param value 值
+     * @return
+     * @throws Exception
+     */
+    public static boolean Inst(String tableName, String rowKey, String family, String column, Object value) throws Exception {
+        try {
+            HTable table = new HTable(conf, tableName);
+            Put put = new Put(Bytes.toBytes(rowKey));
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(value);
+            oos.flush();
+            put.add(Bytes.toBytes(family),Bytes.toBytes(column),bos.toByteArray());//Bytes.toBytes(JSONArray.fromObject(value).toString())
+            table.put(put);
+            table.close();
+            oos.close();
+            bos.close();
+        } catch (IOException e) {
+            System.out.println(JSONArray.fromObject(e));
+            return false;
+        }
+        return true;
+//        _client.Value.put(Encoding.UTF8.GetBytes(tablename), new TPut
+//        {
+//            Row = Encoding.UTF8.GetBytes(rowkey),
+//                    ColumnValues = new List<TColumnValue>
+//            {
+//                new TColumnValue
+//                {
+//                    Family = Encoding.UTF8.GetBytes(family),
+//                            Qualifier = Encoding.UTF8.GetBytes(columnname),
+//                            Value = Serializer(value)
+//                }
+//            }
+//        });
+    }
+
+    //</editor-fold>
+
+    //<editor-fold desc="根据rowkey 获取表 列族 列">
 
     /**
      * 单条件查询,根据rowkey查询唯一一条记录 返回rowkey对应的所有列族下的所有列数据
@@ -114,6 +174,7 @@ public class HbaseHelper {
         return cellDateList;
     }
 
+    //</editor-fold>
 
     //</editor-fold>
 }

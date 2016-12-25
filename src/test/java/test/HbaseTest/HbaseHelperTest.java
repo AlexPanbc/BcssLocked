@@ -14,9 +14,10 @@ public class HbaseHelperTest {
     @Test
     public void getRow() throws Exception {
 
-          Object object = HbaseHelper.GetRow("t1", "001");
-       // Object object = HbaseHelper.GetRow("t1", "001","f1");
-//       Object object = HbaseHelper.GetRow("t1", "001","f1","address");
+//        Object object = HbaseHelper.GetRow("t1", "001");
+//        Object object = HbaseHelper.GetRow("t1", "001", "f1");
+        HbaseHelper.Inst("t1", "002", "f2", "address", "lai yi duan wen zi ");
+        Object object = HbaseHelper.GetRow("t1", "002", "f2", "address");
         if (object != null)
             System.out.println(JSONArray.fromObject(object));
         else
