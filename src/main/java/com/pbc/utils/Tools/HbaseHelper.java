@@ -83,5 +83,37 @@ public class HbaseHelper {
         }
         return cellDateList;
     }
+
+    /**
+     * 单条件查询,根据rowkey查询唯一一条记录 返回指定列族的列数据
+     *
+     * @param tableName
+     * @param rowKey
+     * @param family
+     * @param column
+     * @throws Exception
+     */
+    public static List<CellDate> GetRow(String tableName, String rowKey, String family, String column) throws Exception {
+        List<HbaseModel.CellDate> cellDateList = new ArrayList<>();
+        try {
+            HTable table = new HTable(conf, tableName);
+            Get get = new Get(Bytes.toBytes(rowKey));
+            get.addColumn(Bytes.toBytes(family), Bytes.toBytes(column));
+            Result result = table.get(get);
+            for (KeyValue value : result.raw()) {
+                HbaseModel.CellDate cellDate = new HbaseModel().new CellDate();
+                cellDate.setFamily(Bytes.toString(value.getFamily()));//所属列族名称
+                cellDate.setColumn(Bytes.toString(value.getQualifier()));//列名称
+                cellDate.setValue(Bytes.toString(value.getValue()));//存储的值
+                cellDate.setTimestamp(value.getTimestamp());//获取时间戳
+                cellDateList.add(cellDate);
+            }
+        } catch (IOException e) {
+            System.out.println(JSONArray.fromObject(e));
+        }
+        return cellDateList;
+    }
+
+
     //</editor-fold>
 }
