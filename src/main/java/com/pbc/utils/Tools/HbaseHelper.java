@@ -29,6 +29,12 @@ public class HbaseHelper {
     }
     //<editor-fold desc="HBase Helper">
 
+    //<editor-fold desc="生成行建">
+
+
+
+    //</editor-fold>
+
     //<editor-fold desc="插入 数据">
 
     /**

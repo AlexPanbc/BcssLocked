@@ -1,5 +1,6 @@
 package test.HbaseTest;
 
+import com.pbc.utils.Tools.DateTools;
 import com.pbc.utils.Tools.HbaseHelper;
 import com.pbc.utils.exceptions.HbaseModel;
 import net.sf.json.JSONArray;
@@ -38,6 +39,14 @@ public class HbaseHelperTest {
             System.out.println(JSONArray.fromObject(object));
         else
             System.out.println("数据不存在！");
+    }
+
+    /**
+     * 生成rowkey
+     */
+    @Test
+    public void createRowKey() {
+        System.out.println(DateTools.padLeft(2337));
     }
 
     @Test
