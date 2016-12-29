@@ -46,7 +46,7 @@ public class HbaseHelperTest {
      */
     @Test
     public void createRowKey() {
-        System.out.println(DateTools.padLeft(2337));
+        System.out.println(HbaseHelper.padLeft(2337));
     }
 
     @Test

@@ -88,26 +88,6 @@ public class DateTools {
         }
         return sdf;
     }
-
-    /**
-     * 左补齐
-     *
-     * @param id
-     * @return
-     */
-    public static String padLeft(int id) {
-        int strlen = Integer.toString(id).length();
-        String str = Integer.toString(id);
-        if (strlen < 8)
-            for (int i = 0; i < 8 - strlen; i++)
-                str = str + '0';
-        String sl = Long.toString(Long.MAX_VALUE - new Date().getTime());
-        if (sl.length() < 19)
-            for (int i = 0; i < 19 - sl.length(); i++)
-                sl = sl + '0';
-        return str + sl;
-    }
-
     /**
      * 随机生成六位数验证码
      *

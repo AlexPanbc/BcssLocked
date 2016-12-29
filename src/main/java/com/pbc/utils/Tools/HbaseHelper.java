@@ -15,6 +15,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,14 +32,31 @@ public class HbaseHelper {
 
     //<editor-fold desc="生成行建">
 
-
+    /**
+     * 左补齐
+     *
+     * @param id
+     * @return
+     */
+    public static String padLeft(int id) {
+        int strlen = Integer.toString(id).length();
+        String str = Integer.toString(id);
+        if (strlen < 8)
+            for (int i = 0; i < 8 - strlen; i++)
+                str = str + '0';
+        String sl = Long.toString(Long.MAX_VALUE - new Date().getTime());
+        if (sl.length() < 19)
+            for (int i = 0; i < 19 - sl.length(); i++)
+                sl = sl + '0';
+        return str + sl;
+    }
 
     //</editor-fold>
 
     //<editor-fold desc="插入 数据">
 
     /**
-     * 写入单列数据
+     * 写入单行单列数据
      *
      * @param tableName 表名
      * @param rowKey    行键
@@ -61,7 +79,7 @@ public class HbaseHelper {
     }
 
     /**
-     * 写入多列数据
+     * 写入多行多列数据
      *
      * @param tableName
      * @param rowsDate
