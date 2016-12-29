@@ -1,5 +1,6 @@
 package test.HbaseTest;
 
+import com.pbc.utils.Tools.BRHbase.HbaseDemol;
 import com.pbc.utils.Tools.DateTools;
 import com.pbc.utils.Tools.HbaseHelper;
 import com.pbc.utils.exceptions.HbaseModel;
@@ -16,14 +17,26 @@ import java.util.List;
  */
 public class HbaseHelperTest {
 
+
+    //<editor-fold desc="创建表">
+    @Test
+    public void createTable() {
+        List<String> lstName = new ArrayList<>();
+        for (int i = 0; i < 3; i++)
+            lstName.add("n" + i);
+        HbaseDemol.createTable("t1", lstName);
+    }
+
+    //</editor-fold>
+
     @Test
     public void getRow() throws Exception {
 //
 //        Object object = HbaseHelper.getRow("t1", "001");
 //        Object object = HbaseHelper.getTable("t1");
 //        Object object = HbaseHelper.getRow("t1", "001", "f1");
-//        Object object = HbaseHelper.getRow("t1", "002", "f2", "address");
-        Object object = HbaseHelper.getRows("t1", "008", 3);
+        Object object = HbaseHelper.getRow("t1", "002", "f2", "pv");
+        //    Object object = HbaseHelper.getRows("t1", "001",10);
 
 //        List<HbaseModel.HColumn> lstH = new ArrayList<>();
 //        HbaseModel.HColumn hfn = new HbaseModel().new HColumn();
@@ -58,24 +71,24 @@ public class HbaseHelperTest {
             ird.setRowKey("00" + String.valueOf(i + 1));
             List<HbaseModel.InsertCellData> listCd = new ArrayList<>();
             HbaseModel.InsertCellData irn = new HbaseModel().new InsertCellData();
-            irn.setFamily("f1");
-            irn.setColumn("name");
-            irn.setValue("哈哈" + i);
+            irn.setFamily("n0");
+            irn.setColumn("pv");
+            irn.setValue(Integer.toString(i));
             listCd.add(irn);
             HbaseModel.InsertCellData iri = new HbaseModel().new InsertCellData();
-            iri.setFamily("f1");
-            iri.setColumn("img");
-            iri.setValue("头像" + i);
+            iri.setFamily("n0");
+            iri.setColumn("uv");
+            iri.setValue(Integer.toString(i + 2));
             listCd.add(iri);
             HbaseModel.InsertCellData ira = new HbaseModel().new InsertCellData();
-            ira.setFamily("f1");
-            ira.setColumn("address");
-            ira.setValue("地址" + i);
+            ira.setFamily("n1");
+            ira.setColumn("pv");
+            ira.setValue(Integer.toString(i + 3));
             listCd.add(ira);
             HbaseModel.InsertCellData ir2i = new HbaseModel().new InsertCellData();
-            ir2i.setFamily("f2");
-            ir2i.setColumn("img");
-            ir2i.setValue("f2头像" + i);
+            ir2i.setFamily("n1");
+            ir2i.setColumn("uv");
+            ir2i.setValue(Integer.toString(i + 4));
             listCd.add(ir2i);
             ird.setColumns(listCd);
             list.add(ird);
