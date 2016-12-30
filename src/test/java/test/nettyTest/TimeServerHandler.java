@@ -17,7 +17,7 @@ public class TimeServerHandler  extends ChannelHandlerAdapter {
      * 通过ChannelHandlerContext.alloc()得到一个当前的ByteBufAllocator，
      * 然后分配一个新的缓冲。
      */
-    @Override
+   // @Override
     public void channelActive(final ChannelHandlerContext ctx) throws Exception {
         final ByteBuf time=ctx.alloc().buffer(4);
         time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));

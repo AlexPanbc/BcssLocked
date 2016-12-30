@@ -35,8 +35,8 @@ public class HbaseHelperTest {
 //        Object object = HbaseHelper.getRow("t1", "001");
 //        Object object = HbaseHelper.getTable("t1");
 //        Object object = HbaseHelper.getRow("t1", "001", "f1");
-        Object object = HbaseHelper.getRow("t1", "002", "f2", "pv");
-        //    Object object = HbaseHelper.getRows("t1", "001",10);
+//        Object object = HbaseHelper.getRow("t1", "002", "f2", "address");
+        Object object = HbaseHelper.getRows("t1", "001",10);
 
 //        List<HbaseModel.HColumn> lstH = new ArrayList<>();
 //        HbaseModel.HColumn hfn = new HbaseModel().new HColumn();

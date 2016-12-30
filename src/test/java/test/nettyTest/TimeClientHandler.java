@@ -33,7 +33,7 @@ public class TimeClientHandler  extends ChannelHandlerAdapter {
         buf=null;
     }
 
-    @Override
+   // @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf m=(ByteBuf) msg;
         buf.writeBytes(m);

@@ -20,7 +20,7 @@ public class ResponseServerHandler extends ChannelHandlerAdapter {
      * @param msg
      * @throws Exception
      */
-    @Override
+   // @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ctx.write(msg);
     }
@@ -31,7 +31,7 @@ public class ResponseServerHandler extends ChannelHandlerAdapter {
      * @param ctx
      * @throws Exception
      */
-    @Override
+    //@Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
     }

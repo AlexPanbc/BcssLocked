@@ -24,7 +24,7 @@ public class DiscardServerHandler extends ChannelHandlerAdapter {
      * @param msg
      * @throws Exception
      */
-    @Override
+   // @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         try{
             ByteBuf in=(ByteBuf) msg;
