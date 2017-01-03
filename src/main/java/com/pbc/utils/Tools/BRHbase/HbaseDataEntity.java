@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Created by panbingcan on 2016/12/29.
  */
-public class HbaseDataEntity {
+public class  HbaseDataEntity {
     private String tableName;
     private String nameSpace;
     private String mobileKey;

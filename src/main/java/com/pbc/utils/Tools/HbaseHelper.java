@@ -9,7 +9,7 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.*;
 import com.pbc.utils.exceptions.HbaseModel.*;
-import org.apache.hadoop.hbase.filter.PageFilter;
+import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
@@ -276,6 +276,31 @@ public class HbaseHelper {
         return null;
     }
 
+    public static List<RowData> getRowsWhere(String tableName, List<CellDate> where) {
+//        try {
+//            HTable table = new HTable(conf, tableName);
+//            // 参数的格式：columnFamily,columnName,columnValue
+//            List<Filter> filters = new ArrayList<Filter>();
+//            for (CellDate cd : where) {
+//                SingleColumnValueFilter filter = new SingleColumnValueFilter(
+//                        Bytes.toBytes(cd.getFamily()), Bytes.toBytes(cd.getColumn()),
+//                        CompareFilter.CompareOp(FilterList.Operator.EQUAL),
+//                        Bytes.toBytes(cd.getValue()));
+//                filter.setFilterIfMissing(true);
+//                filters.add(filter);
+//            }
+//            FilterList filterList = new FilterList(filters);
+//            Scan scan = new Scan();
+//            scan.setFilter(filterList);
+//            return getRowData(table.getScanner(scan));
+//        } catch (IOException e) {
+//            System.out.println(JSONArray.fromObject(e));
+//        }
+        return null;
+    }
+
+    //<editor-fold desc="内部通用方法">
+
     /**
      * ResultScanner 数据转换
      *
@@ -311,6 +336,8 @@ public class HbaseHelper {
         }
         return cellDateList;
     }
+
+    //</editor-fold>
 
     //</editor-fold>
 
