@@ -277,25 +277,25 @@ public class HbaseHelper {
     }
 
     public static List<RowData> getRowsWhere(String tableName, List<CellDate> where) {
-       try {
-           HTable table = new HTable(conf, tableName);
+        try {
+            HTable table = new HTable(conf, tableName);
             // 参数的格式：columnFamily,columnName,columnValue
             List<Filter> filters = new ArrayList<Filter>();
-           for (CellDate cd : where) {
+            for (CellDate cd : where) {
                 SingleColumnValueFilter filter = new SingleColumnValueFilter(
-                       Bytes.toBytes(cd.getFamily()), Bytes.toBytes(cd.getColumn()),
+                        Bytes.toBytes(cd.getFamily()), Bytes.toBytes(cd.getColumn()),
                         CompareFilter.CompareOp.EQUAL,
                         Bytes.toBytes(cd.getValue()));
-               filter.setFilterIfMissing(true);
+                filter.setFilterIfMissing(true);
                 filters.add(filter);
-           }
-           FilterList filterList = new FilterList(filters);
+            }
+            FilterList filterList = new FilterList(filters);
             Scan scan = new Scan();
             scan.setFilter(filterList);
             return getRowData(table.getScanner(scan));
         } catch (IOException e) {
-           System.out.println(JSONArray.fromObject(e));
-       }
+            System.out.println(JSONArray.fromObject(e));
+        }
         return null;
     }
 

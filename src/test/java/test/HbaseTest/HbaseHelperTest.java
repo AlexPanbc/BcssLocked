@@ -37,25 +37,25 @@ public class HbaseHelperTest {
 //        Object object = HbaseHelper.getRow("t1", "001", "f1");
 //        Object object = HbaseHelper.getRow("t1", "002", "f2", "address");
 //        Object object = HbaseHelper.getRows("t1", "001",10);
-
+//
         HbaseModel.CellDate hfn = new HbaseModel().new CellDate();
         hfn.setFamily("n1");
         hfn.setColumn("pv");
-        hfn.setValue("1");
+        hfn.setValue("11");
         List<HbaseModel.CellDate> lst = new ArrayList<>();
         lst.add(hfn);
         Object object = HbaseHelper.getRowsWhere("t1", lst);
 
 //        List<HbaseModel.HColumn> lstH = new ArrayList<>();
 //        HbaseModel.HColumn hfn = new HbaseModel().new HColumn();
-//        hfn.setFamily("f1");
-//        hfn.setColumn("name");
+//        hfn.setFamily("n1");
+//        hfn.setColumn("pv");
 //        lstH.add(hfn);
 //        HbaseModel.HColumn hf2n = new HbaseModel().new HColumn();
 //        hf2n.setFamily("f2");
 //        hf2n.setColumn("img");
 //        lstH.add(hf2n);
-//        Object object = HbaseHelper.getRows("t1", "001", "003", lstH);
+//        Object object = HbaseHelper.getRows("t1", "001", "010", lstH);
         if (object != null)
             System.out.println(JSONArray.fromObject(object));
         else
