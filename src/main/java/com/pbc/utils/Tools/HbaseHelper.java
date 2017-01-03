@@ -241,9 +241,8 @@ public class HbaseHelper {
             Scan scan = new Scan();
             scan.setStartRow(startRow.getBytes());
             scan.setFilter(new PageFilter(count));
-            for (HColumn hc : columns) {
+            for (HColumn hc : columns)
                 scan.addColumn(hc.getFamily().getBytes(), hc.getColumn().getBytes());
-            }
             scan.setStartRow(startRow.getBytes());
             return getRowData(table.getScanner(scan));
         } catch (IOException e) {
@@ -264,9 +263,8 @@ public class HbaseHelper {
         try {
             HTable table = new HTable(conf, tableName);
             Scan scan = new Scan();
-            for (HColumn hc : columns) {
+            for (HColumn hc : columns)
                 scan.addColumn(hc.getFamily().getBytes(), hc.getColumn().getBytes());
-            }
             scan.setStartRow(startRow.getBytes());
             scan.setStopRow(stopRow.getBytes());
             return getRowData(table.getScanner(scan));
@@ -276,7 +274,14 @@ public class HbaseHelper {
         return null;
     }
 
-    public static List<RowData> getRowsWhere(String tableName, List<CellDate> where) {
+    /**
+     * 根据value like数据
+     *
+     * @param tableName
+     * @param where
+     * @return
+     */
+    public static List<RowData> getRowsByValue(String tableName, List<CellDate> where) {
         try {
             HTable table = new HTable(conf, tableName);
             // 参数的格式：columnFamily,columnName,columnValue
@@ -293,6 +298,30 @@ public class HbaseHelper {
             Scan scan = new Scan();
             scan.setFilter(filterList);
             return getRowData(table.getScanner(scan));
+        } catch (IOException e) {
+            System.out.println(JSONArray.fromObject(e));
+        }
+        return null;
+    }
+
+    /**
+     * 根据rowkey like 数据
+     *
+     * @param tableName
+     * @param str
+     * @return
+     */
+    public static List<RowData> getRowsByRow(String tableName, String str) {
+        try {
+            Scan scan = new Scan();
+            RegexStringComparator comp = new RegexStringComparator(str);
+            RowFilter filter = new RowFilter(CompareFilter.CompareOp.EQUAL, comp);
+            scan.setFilter(filter);
+            scan.setCaching(200);
+            scan.setCacheBlocks(false);
+            HTable hTable = new HTable(conf, tableName);
+            ResultScanner scanner = hTable.getScanner(scan);
+            return getRowData(scanner);
         } catch (IOException e) {
             System.out.println(JSONArray.fromObject(e));
         }
