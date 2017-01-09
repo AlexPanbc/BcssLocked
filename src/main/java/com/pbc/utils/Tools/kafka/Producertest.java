@@ -17,11 +17,11 @@ public class Producertest {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("zk.connect", "hbase-centos:2181");
+        props.put("zk.connect", "kafka-centos:2181");
         // serializer.class为消息的序列化类
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         // 配置metadata.broker.list, 为了高可用, 最好配两个broker实例
-        props.put("metadata.broker.list", "hbase-centos:9092");
+        props.put("metadata.broker.list", "kafka-centos:9092");
         // 设置Partition类, 对队列进行合理的划分
         //props.put("partitioner.class", "idoall.testkafka.Partitionertest");
         // ACK机制, 消息发送需要kafka服务端确认

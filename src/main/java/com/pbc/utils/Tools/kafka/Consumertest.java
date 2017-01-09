@@ -35,7 +35,7 @@ public class Consumertest extends Thread {
     private static ConsumerConfig createConsumerConfig() {
         Properties props = new Properties();
         // 设置zookeeper的链接地址
-        props.put("zookeeper.connect", "hbase-centos:2181");
+        props.put("zookeeper.connect", "kafka-centos:2181");
         // 设置group id
         props.put("group.id", "1");
         // kafka的group 消费记录是保存在zookeeper上的, 但这个信息在zookeeper上不是实时更新的, 需要有个间隔时间更新
