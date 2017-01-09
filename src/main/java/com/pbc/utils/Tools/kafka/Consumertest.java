@@ -37,7 +37,7 @@ public class Consumertest extends Thread {
         // 设置zookeeper的链接地址
         props.put("zookeeper.connect", "kafka-centos:2181");
         // 设置group id
-        props.put("group.id", "1");
+        props.put("group.id", "6");
         // kafka的group 消费记录是保存在zookeeper上的, 但这个信息在zookeeper上不是实时更新的, 需要有个间隔时间更新
         props.put("auto.commit.interval.ms", "1000");
         props.put("zookeeper.session.timeout.ms", "10000");
@@ -56,11 +56,11 @@ public class Consumertest extends Thread {
 
         while (it.hasNext()) {
             System.out.println("get data:" + new String(it.next().message()));
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Thread.sleep(1);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 }
