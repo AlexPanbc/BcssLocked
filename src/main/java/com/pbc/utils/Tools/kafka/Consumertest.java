@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.pbc.service.GoodsTypeService;
+import com.pbc.service.kafkaConsumerService;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.utils.Json;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.alibaba.fastjson.JSON.toJSONString;
 
@@ -21,6 +24,8 @@ public class Consumertest extends Thread {
 
     private final ConsumerConnector consumer;
     private final String topic;
+    @Autowired
+    private kafkaConsumerService kafkaConsumerService;
 
     public static void main(String[] args) {
         Consumertest consumerThread = new Consumertest("test");
@@ -56,6 +61,7 @@ public class Consumertest extends Thread {
 
         while (it.hasNext()) {
             System.out.println("get data:" + new String(it.next().message()));
+            kafkaConsumerService.instBattery(Integer.parseInt(it.next().message().toString()));
 //            try {
 //                Thread.sleep(1);
 //            } catch (InterruptedException e) {

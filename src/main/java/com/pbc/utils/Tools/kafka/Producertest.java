@@ -38,10 +38,10 @@ public class Producertest {
 
     /***
      * 生产着
-     * @param jsonObject
+     * @param id
      */
-    public static void producer(JSONObject jsonObject) {
-        new Producer<String, String>(new ProducerConfig(props)).send(new KeyedMessage("test", jsonObject));
+    public static void producer(int id) {
+        new Producer<String, String>(new ProducerConfig(props)).send(new KeyedMessage("test", id));
     }
 
     public static void aaa(String[] args) {
