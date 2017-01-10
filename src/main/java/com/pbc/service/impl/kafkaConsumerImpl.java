@@ -6,6 +6,7 @@ import com.pbc.utils.exceptions.HbaseModel;
 import net.sf.json.JSONArray;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,12 +21,13 @@ public class kafkaConsumerImpl implements kafkaConsumerService {
     private static Logger log = LogManager.getLogger(kafkaConsumerImpl.class);
 
     @Override
-    public void instBattery(int id)  {
+    public void instBattery(int id) {
         try {
             log.debug("人序号：" + id);
             List<HbaseModel.InsertRowData> list = new ArrayList<>();
             HbaseModel.InsertRowData ird = new HbaseModel().new InsertRowData();
-            ird.setRowKey(HbaseHelper.padLeft(id));
+            String sid = HbaseHelper.padLeft(id);
+            ird.setRowKey(sid);
             List<HbaseModel.InsertCellData> listCd = new ArrayList<>();
             HbaseModel.InsertCellData icdsj = new HbaseModel().new InsertCellData();
             icdsj.setFamily("dc");//电池 列族

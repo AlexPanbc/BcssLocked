@@ -28,7 +28,7 @@ public class Consumertest extends Thread {
     private kafkaConsumerService kafkaConsumerService;
 
     public static void main(String[] args) {
-        Consumertest consumerThread = new Consumertest("test");
+        Consumertest consumerThread = new Consumertest("dianchi");
         consumerThread.start();
     }
 
@@ -42,7 +42,7 @@ public class Consumertest extends Thread {
         // 设置zookeeper的链接地址
         props.put("zookeeper.connect", "kafka-centos:2181");
         // 设置group id
-        props.put("group.id", "6");
+        props.put("group.id", "1");
         // kafka的group 消费记录是保存在zookeeper上的, 但这个信息在zookeeper上不是实时更新的, 需要有个间隔时间更新
         props.put("auto.commit.interval.ms", "1000");
         props.put("zookeeper.session.timeout.ms", "10000");
@@ -57,10 +57,9 @@ public class Consumertest extends Thread {
 
         KafkaStream<byte[], byte[]> stream = streamMap.get(topic).get(0);
         ConsumerIterator<byte[], byte[]> it = stream.iterator();
-        System.out.println("*********Results********");
 
         while (it.hasNext()) {
-            System.out.println("get data:" + new String(it.next().message()));
+            System.out.println("输出:" + new String(it.next().message()));
             kafkaConsumerService.instBattery(Integer.parseInt(it.next().message().toString()));
 //            try {
 //                Thread.sleep(1);

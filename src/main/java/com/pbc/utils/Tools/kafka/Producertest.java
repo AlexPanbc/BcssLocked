@@ -57,22 +57,23 @@ public class Producertest {
         // ACK机制, 消息发送需要kafka服务端确认
         props.put("request.required.acks", "1");
 
-        props.put("num.partitions", "6");
+        props.put("num.partitions", "1");
 //        ProducerConfig config = new ProducerConfig(props);
 //        Producer<String, String> producer = new Producer<String, String>(new ProducerConfig(props));
-        for (int i = 0; i < 3; i++) {
+//        for (int i = 0; i < 3; i++) {
             // KeyedMessage<K, V>
             // 　　K对应Partition Key的类型
 
 //　　 topic: "test", key: "key", message: "message"           // 　　V对应消息本身的类型
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss SSS");
-            Date curDate = new Date(System.currentTimeMillis());//获取当前时间
-            String str = formatter.format(curDate);
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss SSS");
+//            Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+//            String str = formatter.format(curDate);
 
-            String msg = "第  " + i + " = " + str;
-            String key = i + "";
-            new Producer<String, String>(new ProducerConfig(props)).send(new KeyedMessage("test", key, msg));
+//            String msg = "第  " + i + " = " + str;
+//            String key = i + "";
+            new Producer<String, String>(new ProducerConfig(props)).send(new KeyedMessage("dianchi", 2337));
+            //   new Producer<String, String>(new ProducerConfig(props)).send(new KeyedMessage("test", key, msg));
 //            producer.send(new KeyedMessage<String, String>("test", key, msg));
-        }
+//        }
     }
 }
