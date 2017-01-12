@@ -20,13 +20,22 @@ public class kafkaConsumerImpl implements kafkaConsumerService {
 
     private static Logger log = LogManager.getLogger(kafkaConsumerImpl.class);
 
+
+    @Override
+    public void inst(int id) {
+        String sid = new HbaseHelper().padLeft(id);
+    }
+
+    @Autowired
+    private HbaseHelper hbaseHelper;
+
     @Override
     public void instBattery(int id) {
         try {
             log.debug("人序号：" + id);
             List<HbaseModel.InsertRowData> list = new ArrayList<>();
             HbaseModel.InsertRowData ird = new HbaseModel().new InsertRowData();
-            String sid = HbaseHelper.padLeft(id);
+            String sid = hbaseHelper.padLeft(id);
             ird.setRowKey(sid);
             List<HbaseModel.InsertCellData> listCd = new ArrayList<>();
             HbaseModel.InsertCellData icdsj = new HbaseModel().new InsertCellData();
@@ -51,7 +60,7 @@ public class kafkaConsumerImpl implements kafkaConsumerService {
             listCd.add(icdwd);
             ird.setColumns(listCd);
             list.add(ird);
-            HbaseHelper.inst("t1", list);
+            new HbaseHelper().inst("t1", list);
         } catch (Exception e) {
             System.out.println(JSONArray.fromObject(e));
         }

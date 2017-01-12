@@ -11,5 +11,7 @@ public interface kafkaConsumerService {
      * @param id
      * @return
      */
-    public void instBattery(int id);
+     void instBattery(int id);
+
+    void inst(int id);
 }

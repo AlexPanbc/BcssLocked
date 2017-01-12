@@ -57,7 +57,7 @@ public class HbaseHelperTest {
 //        lstH.add(hf2n);
 //        Object object = HbaseHelper.getRows("t1", "001", "010", lstH);
 
-        Object object = HbaseHelper.getRowsByRow("t1","09");
+        Object object = new HbaseHelper().getRowsByRow("t1","09");
 
         if (object != null)
             System.out.println(JSONArray.fromObject(object));
@@ -70,7 +70,7 @@ public class HbaseHelperTest {
      */
     @Test
     public void createRowKey() {
-        System.out.println(HbaseHelper.padLeft(2337));
+       System.out.println(new HbaseHelper().padLeft(2337));
     }
 
     @Test
@@ -104,6 +104,6 @@ public class HbaseHelperTest {
             ird.setColumns(listCd);
             list.add(ird);
         }
-        HbaseHelper.inst("t1", list);///// TODO: 2016/12/25 批量插入数据
+      new HbaseHelper().inst("t1", list);///// TODO: 2016/12/25 批量插入数据
     }
 }

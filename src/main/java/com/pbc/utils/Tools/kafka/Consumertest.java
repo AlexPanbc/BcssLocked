@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Logger;
 
+import com.pbc.controller.kafkaProducerController;
 import com.pbc.service.GoodsTypeService;
 import com.pbc.service.kafkaConsumerService;
 import kafka.consumer.ConsumerConfig;
@@ -16,11 +18,16 @@ import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.utils.Json;
+import org.apache.cxf.common.i18n.Exception;
+import org.apache.log4j.LogManager;
+import org.codehaus.plexus.logging.LoggerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.alibaba.fastjson.JSON.toJSONString;
 
 public class Consumertest extends Thread {
+
+    private static org.apache.log4j.Logger log = LogManager.getLogger(Consumertest.class);
 
     private final ConsumerConnector consumer;
     private final String topic;
@@ -29,6 +36,7 @@ public class Consumertest extends Thread {
 
     public static void main(String[] args) {
         Consumertest consumerThread = new Consumertest("dianchi");
+       // consumerThread.setDaemon(true);
         consumerThread.start();
     }
 
@@ -58,14 +66,15 @@ public class Consumertest extends Thread {
         KafkaStream<byte[], byte[]> stream = streamMap.get(topic).get(0);
         ConsumerIterator<byte[], byte[]> it = stream.iterator();
 
+        System.out.println("*****************************");
         while (it.hasNext()) {
-            System.out.println("输出:" + new String(it.next().message()));
-            kafkaConsumerService.instBattery(Integer.parseInt(it.next().message().toString()));
-//            try {
-//                Thread.sleep(1);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                int id = Integer.parseInt(new String(it.next().message()));
+                System.out.println("输出:" + id);
+               // if (id > 0) kafkaConsumerService.instBattery(id);
+            } catch (NumberFormatException e) {
+                log.info("转换失败" + new String(it.next().message()));
+            }
         }
     }
 }
