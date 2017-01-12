@@ -5,6 +5,7 @@ import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import org.apache.log4j.LogManager;
+import org.eclipse.jetty.util.ajax.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
@@ -55,14 +56,14 @@ public class consumerService extends Thread {
 
         KafkaStream<byte[], byte[]> stream = streamMap.get(topic).get(0);
         ConsumerIterator<byte[], byte[]> it = stream.iterator();
-
-        System.out.println("*****************************");
+        System.out.println("---------------------------------");
         while (it.hasNext()) {
             try {
                 int id = Integer.parseInt(new String(it.next().message()));
                 System.out.println("输出:" + id);
                 if (id > 0) kafkaConsumerService.instBattery(id);
             } catch (NumberFormatException e) {
+                System.out.println(JSON.toString(e));
                 log.info("转换失败" + new String(it.next().message()));
             }
         }
