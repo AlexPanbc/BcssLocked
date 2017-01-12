@@ -2,7 +2,7 @@ package com.pbc.controller;
 
 import com.pbc.utils.Tools.BaseController;
 //import com.pbc.utils.Tools.kafka.Producertest;
-import com.pbc.utils.Tools.kafka.Producertest;
+//import com.pbc.utils.Tools.kafka.Producertest;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class kafkaProducerController extends BaseController {
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
     public void get(@PathVariable("id") int id) {
         log.debug("根据id查询订单信息，订单id为：" + toJSONString(id));
-        new Producertest().producer(id);
+//        new Producertest().producer(id);
     }
 
     /***
