@@ -16,8 +16,6 @@
 	<!-- 扫描包加载Service实现类 -->
 	<context:component-scan base-package="com.pbc.service">
 	</context:component-scan>
-	<context:component-scan base-package="com.pbc.utils">
-	</context:component-scan>
 	<bean id="hbaseHelper" class="com.pbc.utils.Tools.HbaseHelper" scope="prototype">
 
 	</bean>

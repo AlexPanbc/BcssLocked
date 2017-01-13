@@ -1,5 +1,7 @@
 package com.pbc.service.kafkaConsumer;
 
+import com.pbc.service.impl.kafkaConsumerImpl;
+import com.pbc.service.kafkaConsumerService;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
@@ -18,12 +20,10 @@ import java.util.Properties;
  */
 public class consumerService extends Thread {
 
-    private static org.apache.log4j.Logger log = LogManager.getLogger(consumerService.class);
-
     private final ConsumerConnector consumer;
     private final String topic;
     @Autowired
-    private com.pbc.service.kafkaConsumerService kafkaConsumerService;
+    private kafkaConsumerService kcs;
 
     public static void main(String[] args) {
         consumerService consumerThread = new consumerService("dianchi");
@@ -56,15 +56,15 @@ public class consumerService extends Thread {
 
         KafkaStream<byte[], byte[]> stream = streamMap.get(topic).get(0);
         ConsumerIterator<byte[], byte[]> it = stream.iterator();
-        System.out.println("---------------------------------");
+        System.out.println("~!@#$%^&*()_++_)(*&^%$#@!~~!@#$%^&*()_+");
         while (it.hasNext()) {
             try {
                 int id = Integer.parseInt(new String(it.next().message()));
                 System.out.println("输出:" + id);
-                if (id > 0) kafkaConsumerService.instBattery(id);
+                kafkaConsumerImpl k = new kafkaConsumerImpl();
+                if (id > 0) k.instBattery(id);
             } catch (NumberFormatException e) {
                 System.out.println(JSON.toString(e));
-                log.info("转换失败" + new String(it.next().message()));
             }
         }
     }

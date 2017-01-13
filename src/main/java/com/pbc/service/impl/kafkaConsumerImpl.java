@@ -32,7 +32,6 @@ public class kafkaConsumerImpl implements kafkaConsumerService {
     @Override
     public void instBattery(int id) {
         try {
-            log.debug("人序号：" + id);
             List<HbaseModel.InsertRowData> list = new ArrayList<>();
             HbaseModel.InsertRowData ird = new HbaseModel().new InsertRowData();
             String sid = hbaseHelper.padLeft(id);
@@ -60,7 +59,7 @@ public class kafkaConsumerImpl implements kafkaConsumerService {
             listCd.add(icdwd);
             ird.setColumns(listCd);
             list.add(ird);
-            new HbaseHelper().inst("t1", list);
+            hbaseHelper.inst("t1", list);
         } catch (Exception e) {
             System.out.println(JSONArray.fromObject(e));
         }

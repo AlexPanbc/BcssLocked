@@ -56,6 +56,7 @@ public class kafkaProducerController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "ss/{id}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8;")
     public String ss(@PathVariable("id") int id) {
+        log.info("7777777777777777777 ");
         return "好啦" + id;
     }
 }
