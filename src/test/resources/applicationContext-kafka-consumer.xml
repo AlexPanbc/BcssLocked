@@ -34,9 +34,9 @@
 		</property>
 	</bean>
 
-	<bean id="consumerKafkaConfig" class="kafka.consumer.ConsumerConfig">
+<!--	<bean id="consumerKafkaConfig" class="kafka.consumer.ConsumerConfig">
 		<constructor-arg index="0" ref="kafkaConfig"/>
-	</bean>
+	</bean>-->
 	<bean id="consumerProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="properties">
 			<props>
