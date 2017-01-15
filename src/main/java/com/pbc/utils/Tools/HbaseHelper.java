@@ -33,8 +33,6 @@ public class HbaseHelper {
     }
 
 
-
-
     //<editor-fold desc="HBase Helper">
 
     //<editor-fold desc="生成行建">
@@ -45,7 +43,7 @@ public class HbaseHelper {
      * @param id
      * @return
      */
-    public  String padLeft(int id) {
+    public String padLeft(int id) {
         int strlen = Integer.toString(id).length();
         String str = Integer.toString(id);
         if (strlen < 8)
@@ -73,7 +71,7 @@ public class HbaseHelper {
      * @return
      * @throws Exception
      */
-    public  void inst(String tableName, String rowKey, String family, String column, String value) throws Exception {
+    public void inst(String tableName, String rowKey, String family, String column, String value) throws Exception {
         try {
             HTable table = new HTable(conf, tableName);
             Put put = new Put(Bytes.toBytes(rowKey));
@@ -92,15 +90,14 @@ public class HbaseHelper {
      * @param rowsDate
      * @throws Exception
      */
-    public  void inst(String tableName, List<InsertRowData> rowsDate) throws Exception {
+    public void inst(String tableName, List<InsertRowData> rowsDate) throws Exception {
         try {
             HTable table = new HTable(conf, tableName);
             List<Put> lstp = new ArrayList<>();
             for (InsertRowData ir : rowsDate) {
                 Put put = new Put(Bytes.toBytes(ir.getRowKey()));
-                for (InsertCellData ic : ir.getColumns()) {
+                for (InsertCellData ic : ir.getColumns())
                     put.add(Bytes.toBytes(ic.getFamily()), Bytes.toBytes(ic.getColumn()), Bytes.toBytes(ic.getValue()));
-                }
                 lstp.add(put);
             }
             table.put(lstp);
@@ -121,7 +118,7 @@ public class HbaseHelper {
      * @param rowKey
      * @throws Exception
      */
-    public  List<CellDate> getRow(String tableName, String rowKey) throws Exception {
+    public List<CellDate> getRow(String tableName, String rowKey) throws Exception {
         try {
             HTable table = new HTable(conf, tableName);
             Result result = table.get(new Get(Bytes.toBytes(rowKey)));
@@ -140,7 +137,7 @@ public class HbaseHelper {
      * @param family
      * @throws Exception
      */
-    public  List<CellDate> getRow(String tableName, String rowKey, String family) throws Exception {
+    public List<CellDate> getRow(String tableName, String rowKey, String family) throws Exception {
         try {
             HTable table = new HTable(conf, tableName);
             Get get = new Get(Bytes.toBytes(rowKey));
@@ -162,7 +159,7 @@ public class HbaseHelper {
      * @param column
      * @throws Exception
      */
-    public  List<CellDate> getRow(String tableName, String rowKey, String family, String column) throws Exception {
+    public List<CellDate> getRow(String tableName, String rowKey, String family, String column) throws Exception {
 
         try {
             HTable table = new HTable(conf, tableName);
@@ -181,7 +178,7 @@ public class HbaseHelper {
      *
      * @param tableName
      */
-    public  List<RowData> getTable(String tableName) {
+    public List<RowData> getTable(String tableName) {
         try {
             HTable table = new HTable(conf, tableName);
             return getRowData(table.getScanner(new Scan()));
@@ -199,7 +196,7 @@ public class HbaseHelper {
      * @param stopRow
      * @throws Exception
      */
-    public  List<RowData> getRows(String tableName, String startRow, String stopRow) throws Exception {
+    public List<RowData> getRows(String tableName, String startRow, String stopRow) throws Exception {
         try {
             HTable table = new HTable(conf, tableName);
             Scan scan = new Scan();
@@ -220,7 +217,7 @@ public class HbaseHelper {
      * @param count
      * @throws Exception
      */
-    public  List<RowData> getRows(String tableName, String startRow, int count) throws Exception {
+    public List<RowData> getRows(String tableName, String startRow, int count) throws Exception {
         try {
             HTable table = new HTable(conf, tableName);
             Scan scan = new Scan();
@@ -242,7 +239,7 @@ public class HbaseHelper {
      * @param count
      * @throws Exception
      */
-    public  List<RowData> getRows(String tableName, String startRow, List<HColumn> columns, int count) throws Exception {
+    public List<RowData> getRows(String tableName, String startRow, List<HColumn> columns, int count) throws Exception {
         try {
             HTable table = new HTable(conf, tableName);
             Scan scan = new Scan();
@@ -266,7 +263,7 @@ public class HbaseHelper {
      * @param stopRow
      * @throws Exception
      */
-    public  List<RowData> getRows(String tableName, String startRow, String stopRow, List<HColumn> columns) throws Exception {
+    public List<RowData> getRows(String tableName, String startRow, String stopRow, List<HColumn> columns) throws Exception {
         try {
             HTable table = new HTable(conf, tableName);
             Scan scan = new Scan();
@@ -288,7 +285,7 @@ public class HbaseHelper {
      * @param where
      * @return
      */
-    public  List<RowData> getRowsByValue(String tableName, List<CellDate> where) {
+    public List<RowData> getRowsByValue(String tableName, List<CellDate> where) {
         try {
             HTable table = new HTable(conf, tableName);
             // 参数的格式：columnFamily,columnName,columnValue
@@ -318,7 +315,7 @@ public class HbaseHelper {
      * @param str
      * @return
      */
-    public  List<RowData> getRowsByRow(String tableName, String str) {
+    public List<RowData> getRowsByRow(String tableName, String str) {
         try {
             Scan scan = new Scan();
             RegexStringComparator comp = new RegexStringComparator(str);
@@ -343,7 +340,7 @@ public class HbaseHelper {
      * @param rs
      * @return
      */
-    private  List<RowData> getRowData(ResultScanner rs) {
+    private List<RowData> getRowData(ResultScanner rs) {
         List<RowData> lstRd = new ArrayList<>();
         for (Result r : rs) {
             RowData rd = new HbaseModel().new RowData();
@@ -360,7 +357,7 @@ public class HbaseHelper {
      * @param result
      * @return
      */
-    private  List<CellDate> getCellDate(Result result) {
+    private List<CellDate> getCellDate(Result result) {
         List<HbaseModel.CellDate> cellDateList = new ArrayList<>();
         for (Cell value : result.listCells()) {
             HbaseModel.CellDate cellDate = new HbaseModel().new CellDate();

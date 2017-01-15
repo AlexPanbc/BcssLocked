@@ -1,10 +1,8 @@
 package com.pbc.service.kafkaConsumer;
 
-import com.pbc.controller.kafkaProducerController;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.GenericXmlApplicationContext;
-
-import com.pbc.service.impl.kafkaConsumerImpl;
 import com.pbc.service.kafkaConsumerService;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.ConsumerIterator;
@@ -12,7 +10,6 @@ import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import org.apache.log4j.LogManager;
 import org.eclipse.jetty.util.ajax.JSON;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,27 +25,22 @@ public class consumerService extends Thread {
     private final ConsumerConnector consumer;
     private final String topic;
     @Autowired
-    private kafkaConsumerService kcs;
+    private kafkaConsumerService userService;
 
     public static void main(String[] args) {
-        GenericXmlApplicationContext context = new GenericXmlApplicationContext();
-        context.setValidating(false);
-        try {
-            context.load("classpath*:applicationContext*.xml");
-        } catch (Exception e) {
-            System.out.println(JSON.toString(e));
-        }
-        context.refresh();
-//        kafkaConsumerService userService = context.getBean(kafkaConsumerService.class);
-//        log.info(JSON.toString(userService));
-//        userService.instBattery(2337);
 
-//        consumerService consumerThread = new consumerService("dianchi");
-//        // consumerThread.setDaemon(true);
-//        consumerThread.start();
+        consumerService consumerThread = new consumerService("dianchi");
+        // consumerThread.setDaemon(true);
+        consumerThread.start();
     }
 
     public consumerService(String topic) {
+        GenericXmlApplicationContext context = new GenericXmlApplicationContext();
+        context.setValidating(false);
+        context.load("classpath:config/spring/applicationContext*.xml");
+        context.refresh();
+        userService = context.getBean(kafkaConsumerService.class);
+
         consumer = kafka.consumer.Consumer.createJavaConsumerConnector(createConsumerConfig());
         this.topic = topic;
     }
@@ -78,9 +70,7 @@ public class consumerService extends Thread {
             try {
                 int id = Integer.parseInt(new String(it.next().message()));
                 System.out.println("输出:" + id);
-                kafkaConsumerImpl k = new kafkaConsumerImpl();
-                if (id > 0) k.instBattery(id);
-                kcs.instBattery(2338);
+                if (id > 0) userService.instBattery(id);
             } catch (NumberFormatException e) {
                 System.out.println(JSON.toString(e));
             }
