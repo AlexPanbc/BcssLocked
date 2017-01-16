@@ -32,13 +32,13 @@
 			</props>
 		</property>
 	</bean>
-<!--
+
 	<bean id="producerConfig" class="kafka.producer.ProducerConfig">
 		<constructor-arg index="0" ref="kafkaConfig"/>
 	</bean>
 	<bean id="producer" class="kafka.javaapi.producer.Producer">
 		<constructor-arg index="0" ref="producerConfig"/>
-	</bean>-->
+	</bean>
 	<bean id="kafkaTopic" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="properties">
 			<props>

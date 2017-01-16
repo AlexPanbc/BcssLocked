@@ -34,9 +34,9 @@
 		</property>
 	</bean>
 
-<!--	<bean id="consumerKafkaConfig" class="kafka.consumer.ConsumerConfig">
+	<bean id="consumerKafkaConfig" class="kafka.consumer.ConsumerConfig">
 		<constructor-arg index="0" ref="kafkaConfig"/>
-	</bean>-->
+	</bean>
 	<bean id="consumerProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="properties">
 			<props>
@@ -47,8 +47,6 @@
 	</bean>
 
 	<!--此处配置自己的消费者类：应用启动时候，spring会自动去执行Consumer类中定义的消费方法-->
-	<!--<bean id="consumerReceive" class="" init-method=""></bean>-->
-
-
+	<bean id="consumerReceive" class="test.kafkaTest.ConsumerReceiver" init-method="consume"></bean>
 
 	</beans>
