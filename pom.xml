@@ -15,29 +15,86 @@
         <spring.version>4.1.4.RELEASE</spring.version>
         <jackson.version>2.5.0</jackson.version>
         <cxf.version>2.7.13</cxf.version>
+        <spring.integration.kafka>2.1.0.RELEASE</spring.integration.kafka>
+        <validation.api>1.1.0.Final</validation.api>
+        <junit.version>4.12</junit.version>
+        <mockito.core.version>1.9.5</mockito.core.version>
+        <jedis.version>2.1.0</jedis.version>
+        <netty.all.version>5.0.0.Alpha1</netty.all.version>
+        <jta.version>1.1</jta.version>
+        <mybatis.version>3.2.8</mybatis.version>
+        <mybatis.spring.version>1.2.2</mybatis.spring.version>
+        <pagehelper.version>4.0.0</pagehelper.version>
+        <jsqlparser.version>0.9.5</jsqlparser.version>
+        <mysql.connector.java.version>5.1.38</mysql.connector.java.version>
+        <druid.version>1.0.12</druid.version>
+        <aspectjweaver.version>1.8.4</aspectjweaver.version>
+        <log4j.version>1.2.17</log4j.version>
+        <servlet.api.version>3.0-alpha-1</servlet.api.version>
+        <jstl.version>1.2</jstl.version>
+        <jsp.api>2.1</jsp.api>
+        <jackson.mapper.asl>1.9.13</jackson.mapper.asl>
+        <fastjson.version>1.2.3</fastjson.version>
+        <commons.io.version>2.4</commons.io.version>
+        <commons.fileupload.version>1.2.2</commons.fileupload.version>
+        <commons.httpclient>3.1</commons.httpclient>
+        <commons.lang.version>2.6</commons.lang.version>
+        <gson.version>2.0</gson.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <httpclient.version>4.1.2</httpclient.version>
+        <httpcore.version>4.1</httpcore.version>
+        <httpclient.cache.version>4.1</httpclient.cache.version>
+        <xstream.version>1.4.7</xstream.version>
+        <maven.resources.plugin>2.4.3</maven.resources.plugin>
+        <json.version>20160212</json.version>
+        <json.lib.version>2.4</json.lib.version>
+        <hibernate.validator>5.2.2.Final</hibernate.validator>
+        <poi.version>3.9</poi.version>
+        <poi.excelant.version>3.9</poi.excelant.version>
+        <xbean.spring.version>3.3</xbean.spring.version>
+        <acegi.security.version>1.0.4</acegi.security.version>
+        <ehcache.version>1.2.4</ehcache.version>
+        <jsr250.api.version>1.0</jsr250.api.version>
+        <activemq.all.version>5.1.0</activemq.all.version>
+        <commons.dbcp.version>1.3</commons.dbcp.version>
+        <commons.pool.version>1.3</commons.pool.version>
+        <jaxen.version>1.1.6</jaxen.version>
+        <joda.time.version>2.9.4</joda.time.version>
+        <jsr311.api.version>1.1.1</jsr311.api.version>
+        <jaxws.rt.version>2.2.8</jaxws.rt.version>
+        <commons.beanutils.version>1.8.3</commons.beanutils.version>
     </properties>
 
-    <!--哥哥，要依赖的jar包都配置在这里面-->
     <dependencies>
+
+        <!--spring与kafaka集成的jar包-->
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-kafka</artifactId>
+            <version>${spring.integration.kafka}</version>
+        </dependency>
+
         <!--参数校验-->
-        <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
+            <version>${validation.api}</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>1.9.5</version>
+            <version>${mockito.core.version}</version>
             <scope>test</scope>
         </dependency>
+
         <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -49,16 +106,15 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>2.1.0</version>
+            <version>${jedis.version}</version>
         </dependency>
-
-
         <!--netty依赖-->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>5.0.0.Alpha1</version>
+            <version>${netty.all.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
@@ -88,11 +144,13 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
@@ -111,64 +169,65 @@
             <artifactId>spring-jms</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
         <dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>jta</artifactId>
-            <version>1.1</version>
+            <version>${jta.version}</version>
         </dependency>
+
         <!-- mybatis 包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.2.8</version>
+            <version>${mybatis.version}</version>
         </dependency>
 
         <!--mybatis spring 插件 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.2.2</version>
+            <version>${mybatis.spring.version}</version>
         </dependency>
 
         <!-- mybatis-分页插件 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>4.0.0</version>
+            <version>${pagehelper.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.github.jsqlparser</groupId>
             <artifactId>jsqlparser</artifactId>
-            <version>0.9.5</version>
+            <version>${jsqlparser.version}</version>
         </dependency>
-
 
         <!-- mysql 连接 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.38</version>
+            <version>${mysql.connector.java.version}</version>
         </dependency>
 
         <!-- 数据源 ：阿里的德鲁伊连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.0.12</version>
+            <version>${druid.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.8.4</version>
+            <version>${aspectjweaver.version}</version>
         </dependency>
 
         <!-- log4j -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
         </dependency>
 
         <!--  <dependency>
@@ -181,36 +240,37 @@
               <artifactId>log4j-core</artifactId>
               <version>2.7</version>
           </dependency>-->
-
         <!-- servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>3.0-alpha-1</version>
+            <version>${servlet.api.version}</version>
         </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
+
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
+            <version>${jsp.api}</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- json -->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.13</version>
+            <version>${jackson.mapper.asl}</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.3</version>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <dependency>
@@ -230,100 +290,104 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
         <!-- 文件上传 -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.4</version>
+            <version>${commons.io.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.2.2</version>
+            <version>${commons.fileupload.version}</version>
         </dependency>
 
         <!-- HttpClient ：做http请求的时候使用-->
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
+            <version>${commons.httpclient}</version>
         </dependency>
-
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+            <version>${commons.lang.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.0</version>
+            <version>${gson.version}</version>
         </dependency>
 
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
+            <version>${dom4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.1.2</version>
+            <version>${httpclient.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
-            <version>4.1</version>
+            <version>${httpcore.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient-cache</artifactId>
-            <version>4.1</version>
+            <version>${httpclient.cache.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.7</version>
+            <version>${xstream.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
-            <version>2.4.3</version>
+            <version>${maven.resources.plugin}</version>
         </dependency>
 
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20160212</version>
+            <version>${json.version}</version>
         </dependency>
+
         <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
-            <version>2.4</version>
+            <version>${json.lib.version}</version>
             <classifier>jdk15</classifier>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.2.2.Final</version>
+            <version>${hibernate.validator}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.9</version>
+            <version>${poi.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-excelant</artifactId>
-            <version>3.9</version>
+            <version>${poi.excelant.version}</version>
         </dependency>
-
 
         <!--<dependency>-->
         <!--<groupId>com.compatibility</groupId>-->
@@ -334,13 +398,15 @@
         <dependency>
             <groupId>org.apache.xbean</groupId>
             <artifactId>xbean-spring</artifactId>
-            <version>3.3</version>
+            <version>${xbean.spring.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.acegisecurity</groupId>
             <artifactId>acegi-security</artifactId>
-            <version>1.0.4</version>
+            <version>${acegi.security.version}</version>
         </dependency>
+
         <!--<dependency>-->
         <!--<groupId>org.jasig.cas.client</groupId>-->
         <!--<artifactId>casclient</artifactId>-->
@@ -356,42 +422,48 @@
         <!--<artifactId>cas-client-integration-atlassian</artifactId>-->
         <!--<version>3.1.3</version>-->
         <!--</dependency>-->
+
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>1.2.4</version>
+            <version>${ehcache.version}</version>
         </dependency>
+
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>jsr250-api</artifactId>
-            <version>1.0</version>
+            <version>${jsr250.api.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-all</artifactId>
-            <version>5.1.0</version>
+            <version>${activemq.all.version}</version>
         </dependency>
+
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>1.3</version>
+            <version>${commons.dbcp.version}</version>
         </dependency>
+
         <dependency>
             <groupId>commons-pool</groupId>
             <artifactId>commons-pool</artifactId>
-            <version>1.3</version>
+            <version>${commons.pool.version}</version>
         </dependency>
+
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
-            <version>1.1.6</version>
+            <version>${jaxen.version}</version>
         </dependency>
 
         <!-- 时间处理 http://mvnrepository.com/artifact/joda-time/joda-time -->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.9.4</version>
+            <version>${joda.time.version}</version>
         </dependency>
 
         <!-- webService:CXF Dependencies -->
@@ -400,46 +472,55 @@
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
             <version>${cxf.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
             <version>${cxf.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http-jetty</artifactId>
             <version>${cxf.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-ws-security</artifactId>
             <version>${cxf.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-ws-policy</artifactId>
             <version>${cxf.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-bundle-jaxrs</artifactId>
             <version>${cxf.version}</version>
         </dependency>
+
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
-            <version>1.1.1</version>
+            <version>${jsr311.api.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
-            <version>2.2.8</version>
+            <version>${jaxws.rt.version}</version>
         </dependency>
+
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.8.3</version>
+            <version>${commons.beanutils.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -454,7 +535,6 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -463,7 +543,6 @@
                     <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -473,7 +552,6 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -483,7 +561,6 @@
                     <overwrite>true</overwrite>
                 </configuration>
             </plugin>
-
             <!-- generate java doc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -499,7 +576,6 @@
                 </configuration>
             </plugin>
         </plugins>
-
         <resources>
             <resource>
                 <directory>src/main/java</directory>
@@ -510,6 +586,5 @@
                 <filtering>false</filtering>
             </resource>
         </resources>
-
     </build>
 </project>
