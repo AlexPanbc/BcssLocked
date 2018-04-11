@@ -196,4 +196,8 @@ public class StringTest {
             this.index = index;
         }
     }
+
+    public static void main(String[] args) {
+
+    }
 }
